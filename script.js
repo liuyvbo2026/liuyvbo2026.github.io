@@ -1,3 +1,6 @@
+// Shared motion preference; all interactions remain usable without animation.
+const motionPreference = window.matchMedia('(prefers-reduced-motion: reduce)');
+const surfaceEase = 'cubic-bezier(.22,1,.36,1)';
 const content = {
 
 
@@ -5,6 +8,46 @@ const content = {
   curiosity: {type:'人人都是产品经理 / 示例文章',title:'最近在关注什么',paragraphs:['有些问题还没有答案，但值得先记下来。','最近读到的一段话，用过的一个工具，或日常生活中一个小小的不方便，都可能成为下一次探索的起点。','这里可以用来收集这些片段。不必每次都写成长文章，几句话也很好。'],notice:'这是一篇示例短文，之后可替换为你的真实记录。'},
 };
 const dialog = document.querySelector('#detail');
+let dialogMotion;
+let dialogClosing = false;
+function animateDialog(closing = false) {
+  const current = getComputedStyle(dialog);
+  const from = {opacity:current.opacity, transform:current.transform};
+  const interrupted = Boolean(dialogMotion);
+  dialogMotion?.cancel();
+  dialogClosing = closing;
+  dialog.classList.toggle('is-closing', closing);
+  if (motionPreference.matches) {
+    dialogMotion = null;
+    if (closing) dialog.close();
+    return;
+  }
+  const start = closing || interrupted ? from : {opacity:0, transform:'translateY(18px) scale(.97)'};
+  const finish = closing ? {opacity:0, transform:'translateY(10px) scale(.98)'} : {opacity:1, transform:'translateY(0) scale(1)'};
+  const animation = dialog.animate([start, finish], {duration:closing ? 180 : 360, easing:surfaceEase, fill:'both'});
+  dialogMotion = animation;
+  animation.onfinish = () => {
+    if (dialogMotion !== animation) return;
+    if (closing) dialog.close();
+    animation.cancel();
+    dialogMotion = null;
+    dialogClosing = false;
+    dialog.classList.remove('is-closing');
+  };
+}
+function dismissDialog() { if (dialog.open && !dialogClosing) animateDialog(true); }
+dialog.addEventListener('cancel', event => {event.preventDefault(); dismissDialog();});
+dialog.addEventListener('close', () => {
+  dialogMotion?.cancel(); dialogMotion = null; dialogClosing = false;
+  dialog.classList.remove('is-closing');
+});
+motionPreference.addEventListener('change', () => {
+  if (!motionPreference.matches) return;
+  dialogMotion?.cancel(); dialogMotion = null;
+  if (dialogClosing) dialog.close();
+  dialogClosing = false; dialog.classList.remove('is-closing');
+  document.querySelectorAll('.project-panel,.deck-preview,.note-pages .note').forEach(el => el.getAnimations().forEach(a => a.cancel()));
+});
 document.querySelectorAll('[data-dialog]').forEach(button => {
   button.addEventListener('click', () => {
     const item = button.dataset.dialog === 'project' ? projects[projectIndex].detail : content[button.dataset.dialog];
@@ -15,10 +58,11 @@ document.querySelectorAll('[data-dialog]').forEach(button => {
     item.paragraphs.forEach(text => {const p=document.createElement('p');p.textContent=text;body.append(p);});
     const note=document.createElement('p');note.className='disclaimer';note.textContent=item.notice;body.append(note);
     dialog.showModal();
+    animateDialog();
   });
 });
-document.querySelector('.close').addEventListener('click',()=>dialog.close());
-dialog.addEventListener('click',event=>{if(event.target===dialog){const rect=dialog.getBoundingClientRect();if(event.clientX<rect.left||event.clientX>rect.right||event.clientY<rect.top||event.clientY>rect.bottom)dialog.close();}});
+document.querySelector('.close').addEventListener('click', dismissDialog);
+dialog.addEventListener('click',event=>{if(event.target===dialog){const rect=dialog.getBoundingClientRect();if(event.clientX<rect.left||event.clientX>rect.right||event.clientY<rect.top||event.clientY>rect.bottom)dismissDialog();}});
 const navLinks=[...document.querySelectorAll('nav a')];
 const sections=[...document.querySelectorAll('main>section')];
 let scheduled=false;
@@ -37,7 +81,7 @@ copyWechat.addEventListener('click', async () => {
     copyWechat.querySelector('.copy-label').textContent = '已复制';
     contactStatus.textContent = '微信号已复制，打开微信搜索即可添加。';
     copyReset = setTimeout(() => {
-      copyWechat.querySelector('.copy-label').textContent = '复制';
+      copyWechat.querySelector('.copy-label').textContent = '复制微信号';
       contactStatus.textContent = '';
     }, 4000);
   } catch {
@@ -46,7 +90,7 @@ copyWechat.addEventListener('click', async () => {
     const selection = window.getSelection();
     selection.removeAllRanges();
     selection.addRange(range);
-    copyWechat.querySelector('.copy-label').textContent = '复制';
+    copyWechat.querySelector('.copy-label').textContent = '复制微信号';
     contactStatus.textContent = '微信号已选中，请长按或使用系统复制快捷键。';
   }
 });
@@ -59,6 +103,7 @@ const projects = [
 let projectIndex = 0;
 const projectGallery = document.querySelector('.project-gallery');
 function showProject(index, announce = true) {
+  const direction = index < projectIndex ? -1 : 1;
   projectIndex = (index + projects.length) % projects.length;
   const project = projects[projectIndex];
   projectGallery.querySelectorAll('[data-stack-offset]').forEach(button => {
@@ -81,10 +126,18 @@ function showProject(index, announce = true) {
   document.querySelector('#project-total').textContent = String(projects.length).padStart(2, '0');
   document.querySelector('#project-slide').setAttribute('aria-label', `第 ${projectIndex + 1} 个项目，共 ${projects.length} 个`);
   projectGallery.querySelector('.project-details').setAttribute('aria-label', `查看${project.name}详情`);
-  if (announce && !window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+  if (announce && !motionPreference.matches) {
     const panel = document.querySelector('#project-slide');
-    panel.getAnimations().forEach(animation => animation.cancel());
-    panel.animate([{transform:'translateY(10px)',opacity:.6},{transform:'translateY(0)',opacity:1}],{duration:260,easing:'cubic-bezier(.2,.7,.3,1)'});
+    const existing = panel.getAnimations();
+    const current = getComputedStyle(panel);
+    const start = existing.length ? {transform:current.transform, opacity:current.opacity} :
+      {transform:`translate3d(${direction * 14}px,12px,0) scale(.99)`, opacity:.65};
+    existing.forEach(animation => animation.cancel());
+    panel.animate([start,{transform:'translate3d(0,0,0) scale(1)',opacity:1}],{duration:420,easing:surfaceEase});
+    projectGallery.querySelectorAll('.deck-preview').forEach((layer, i) => {
+      layer.getAnimations().forEach(a => a.cancel());
+      layer.animate([{translate:`0 ${i ? 5 : 3}px`},{translate:'0 0'}],{duration:440+i*30,easing:surfaceEase});
+    });
   }
   if (announce) document.querySelector('#project-announcement').textContent = `第 ${projectIndex + 1} 个项目，共 ${projects.length} 个：${project.name}`;
 }
@@ -103,46 +156,100 @@ projects.slice(1).forEach(project => { const image = new Image(); image.src = pr
 showProject(0, false);
 
 
-// Always-on grey wallpaper with event-driven mouse parallax.
+// Two notes per page; mobile stacks the same pair without changing pagination.
+const noteGallery = document.querySelector('.note-gallery');
+const noteCards = [...noteGallery.querySelectorAll('.note')];
+const notesPerPage = 2;
+const notePageCount = Math.max(1, Math.ceil(noteCards.length / notesPerPage));
+let notePage = 0;
+function showNotePage(page, announce = true) {
+  const direction = page < notePage ? -1 : 1;
+  const focusedCard = noteCards.find(card => card === document.activeElement);
+  notePage = ((page % notePageCount) + notePageCount) % notePageCount;
+  const first = notePage * notesPerPage;
+  const visibleCards = noteCards.slice(first, first + notesPerPage);
+  noteCards.forEach((card, i) => {
+    card.getAnimations().forEach(animation => animation.cancel());
+    card.hidden = i < first || i >= first + notesPerPage;
+  });
+  document.querySelector('#note-current').textContent = String(notePage + 1).padStart(2, '0');
+  document.querySelector('#note-total').textContent = String(notePageCount).padStart(2, '0');
+  noteGallery.querySelectorAll('.note-navigation button').forEach(button => {button.disabled = notePageCount <= 1;});
+  if (focusedCard?.hidden) visibleCards[0]?.focus({preventScroll:true});
+  if (announce && !motionPreference.matches) {
+    visibleCards.forEach(card => card.animate([
+      {transform:`translate3d(${direction * 14}px,12px,0) scale(.99)`,opacity:.65},
+      {transform:'translate3d(0,0,0) scale(1)',opacity:1}
+    ],{duration:420,easing:surfaceEase}));
+  }
+  if (announce) document.querySelector('#note-announcement').textContent = `第 ${notePage + 1} 页，共 ${notePageCount} 页：${visibleCards.map(card => card.querySelector('h3').textContent).join('、')}`;
+}
+noteGallery.querySelector('.note-next').addEventListener('click', () => showNotePage(notePage + 1));
+noteGallery.querySelector('.note-prev').addEventListener('click', () => showNotePage(notePage - 1));
+noteGallery.addEventListener('keydown', event => {
+  if (notePageCount <= 1 || (event.key !== 'ArrowLeft' && event.key !== 'ArrowRight')) return;
+  event.preventDefault();
+  showNotePage(notePage + (event.key === 'ArrowRight' ? 1 : -1));
+});
+showNotePage(0, false);
+
+// Critically damped, time-based tracking; no autonomous motion or idle RAF loop.
 (() => {
   const wallpaper = document.querySelector('.ambient-wallpaper');
-  const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)');
   const finePointer = window.matchMedia('(any-hover: hover) and (any-pointer: fine)');
-  let frame = 0;
-  let x = 0;
-  let y = 0;
+  let frame = 0, lastTime = 0;
+  let x = 0, y = 0, vx = 0, vy = 0, targetX = 0, targetY = 0;
+  const omega = 18;
   function paint() {
-    wallpaper.style.setProperty('--wallpaper-x', `${x.toFixed(2)}px`);
-    wallpaper.style.setProperty('--wallpaper-y', `${y.toFixed(2)}px`);
-    frame = 0;
+    wallpaper.style.setProperty('--wallpaper-x', `${x.toFixed(3)}px`);
+    wallpaper.style.setProperty('--wallpaper-y', `${y.toFixed(3)}px`);
   }
+  function tick(time) {
+    frame = 0;
+    const dt = lastTime ? Math.min((time-lastTime)/1000, .05) : 1/60;
+    lastTime = time;
+    const decay = Math.exp(-omega * dt);
+    const dx = x-targetX, dy = y-targetY;
+    const cx = vx+omega*dx, cy = vy+omega*dy;
+    x = targetX+(dx+cx*dt)*decay;
+    y = targetY+(dy+cy*dt)*decay;
+    vx = (vx-omega*cx*dt)*decay;
+    vy = (vy-omega*cy*dt)*decay;
+    if (Math.abs(x-targetX)+Math.abs(y-targetY)<.025 && Math.abs(vx)+Math.abs(vy)<.08) {
+      x=targetX; y=targetY; vx=vy=0; lastTime=0; paint(); return;
+    }
+    paint(); frame=requestAnimationFrame(tick);
+  }
+  function start() {if (!frame) {lastTime=0; frame=requestAnimationFrame(tick);}}
   function reset() {
-    cancelAnimationFrame(frame);
-    frame = 0;
-    x = y = 0;
-    paint();
+    cancelAnimationFrame(frame); frame=0; lastTime=0;
+    x=y=vx=vy=targetX=targetY=0; paint();
   }
+  function leave() {targetX=targetY=0; start();}
   function move(event) {
     if (event.pointerType !== 'mouse') return;
-    const nx = Math.max(-1, Math.min(1, event.clientX / window.innerWidth * 2 - 1));
-    const ny = Math.max(-1, Math.min(1, event.clientY / window.innerHeight * 2 - 1));
-    x = nx * Math.min(36, window.innerWidth * .035);
-    y = ny * Math.min(26, window.innerHeight * .035);
-    if (!frame) frame = requestAnimationFrame(paint);
+    const nx=Math.max(-1, Math.min(1, event.clientX/window.innerWidth*2-1));
+    const ny=Math.max(-1, Math.min(1, event.clientY/window.innerHeight*2-1));
+    targetX=nx*Math.min(36,window.innerWidth*.035);
+    targetY=ny*Math.min(26,window.innerHeight*.035);
+    start();
   }
   function render() {
     document.removeEventListener('pointermove', move);
-    document.documentElement.removeEventListener('pointerleave', reset);
-    if (!document.hidden && !reducedMotion.matches && finePointer.matches) {
+    document.documentElement.removeEventListener('pointerleave', leave);
+    if (!document.hidden && !motionPreference.matches && finePointer.matches && !dialog.open) {
       document.addEventListener('pointermove', move, {passive:true});
-      document.documentElement.addEventListener('pointerleave', reset);
-    } else {
-      reset();
-    }
+      document.documentElement.addEventListener('pointerleave', leave);
+    } else if (dialog.open && !motionPreference.matches && !document.hidden && finePointer.matches) {
+      cancelAnimationFrame(frame); frame=0; lastTime=0;
+      targetX=x; targetY=y; vx=vy=0;
+    } else reset();
   }
+  // A modal freezes decorative motion so attention stays on its contents.
+  new MutationObserver(render).observe(dialog,{attributes:true,attributeFilter:['open']});
   window.addEventListener('resize', reset, {passive:true});
   document.addEventListener('visibilitychange', render);
-  reducedMotion.addEventListener('change', render);
+  motionPreference.addEventListener('change', render);
   finePointer.addEventListener('change', render);
   render();
 })();

@@ -7,10 +7,10 @@
   <meta name="theme-color" content="#ffffff">
   <title>刘禹博 · AI 产品经理</title>
   <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 40 40'%3E%3Crect width='40' height='40' fill='white'/%3E%3Cpath d='M9 30V10h22M19 30V20h12' fill='none' stroke='%23151515' stroke-width='2'/%3E%3C/svg%3E">
-  <link rel="stylesheet" href="styles.css?v=default-grey-21">
+  <link rel="stylesheet" href="styles.css?v=note-pairs-38">
 </head>
 <body data-wallpaper="grey">
-  <div class="ambient-wallpaper" data-style="grey" aria-hidden="true"><div class="macintosh-scene macintosh-icons"></div></div>
+  <div class="ambient-wallpaper" data-style="grey" aria-hidden="true"><div class="product-scene product-icons"></div></div>
   <a class="skip" href="#main">跳到主要内容</a>
   <header class="header wrap">
     <div class="brand"><span class="brand-en">LIU YUBO</span></div>
@@ -24,7 +24,7 @@
         <div class="hero-introduction">
           <p class="hero-hello">你好，我是<span>刘禹博。</span></p>
           <h1 id="intro-title" class="hero-statement"><span>从一个想法</span><span>到一个产品。</span></h1>
-          <p class="hero-role"><span class="role-title">AI 产品经理</span><span class="role-focus">聚焦智能制造与 AI 产品</span></p>
+          <p class="hero-role"><span class="role-title">AI 产品经理</span></p>
         </div>
         <div class="hero-profile">
           <p class="hero-description"><span>具备企业效率工具和 ToC AI 产品从 0 到 1 经验。</span><span>聚焦业务洞察、AI 方案设计、评测验收与跨团队交付。</span></p>
@@ -66,13 +66,31 @@
     </section>
     <section id="notes" class="section-grid" aria-labelledby="notes-title">
       <h2 class="section-label" id="notes-title"><span class="section-eyebrow">02 / WRITING</span><span class="section-name">我的文章</span></h2>
-      <div class="section-content note-list">
-        <button class="note" data-dialog="letter">
-          <div class="note-copy"><h3>给这个小站的第一封信</h3><p>关于开始，也关于慢慢来。</p><div class="article-meta"><span class="article-platform">微信公众号</span><span class="article-example">示例文章</span></div></div><span class="arrow" aria-hidden="true">↗</span>
+      <div class="section-content note-gallery" role="region" aria-roledescription="轮播" aria-label="笔记展示">
+        <div class="project-stage note-stage">
+          <div class="note-pages" id="note-pages">
+        <button class="note" type="button" id="note-letter" data-dialog="letter" aria-label="阅读示例文章：给这个小站的第一封信">
+          <div class="note-copy"><h3>给这个小站的第一封信</h3><p>关于开始，也关于慢慢来。</p></div>
+          <div class="note-footer">
+            <div class="article-meta"><span class="article-platform">微信公众号</span><span class="article-example">示例文章</span></div>
+            <span class="note-open" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M5 12h14m-6-6 6 6-6 6"/></svg></span>
+          </div>
         </button>
-        <button class="note" data-dialog="curiosity">
-          <div class="note-copy"><h3>最近在关注什么</h3><p>给好奇心留一点位置。</p><div class="article-meta"><span class="article-platform">人人都是产品经理</span><span class="article-example">示例文章</span></div></div><span class="arrow" aria-hidden="true">↗</span>
+        <button class="note" type="button" id="note-curiosity" data-dialog="curiosity" aria-label="阅读示例文章：最近在关注什么">
+          <div class="note-copy"><h3>最近在关注什么</h3><p>给好奇心留一点位置。</p></div>
+          <div class="note-footer">
+            <div class="article-meta"><span class="article-platform">人人都是产品经理</span><span class="article-example">示例文章</span></div>
+            <span class="note-open" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M5 12h14m-6-6 6 6-6 6"/></svg></span>
+          </div>
         </button>
+          </div>
+          <div class="project-navigation note-navigation" aria-label="笔记翻页">
+            <button class="project-prev note-prev" type="button" aria-label="上一页笔记" disabled aria-controls="note-pages"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M19 12H5m6-6-6 6 6 6"/></svg></button>
+            <button class="project-next note-next" type="button" aria-label="下一页笔记" disabled aria-controls="note-pages"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14m-6-6 6 6-6 6"/></svg></button>
+          </div>
+        </div>
+        <p class="project-position note-position" aria-label="笔记页码"><span id="note-current">01</span><span class="position-divider">/</span><span id="note-total">01</span></p>
+        <p class="sr-only" id="note-announcement" role="status" aria-live="polite" aria-atomic="true"></p>
         <p class="notes-foot">当前为示例文章与平台标注，真实文章及原文链接待补充。</p>
       </div>
     </section>
@@ -80,31 +98,29 @@
       <h2 class="section-label" id="contact-title"><span class="section-eyebrow">03 / GET IN TOUCH</span><span class="section-name">保持联系</span></h2>
       <div class="section-content contact-layout">
         <div class="contact-direct">
-          <p class="contact-title">如果你也有有趣的想法，欢迎聊聊。</p>
+          <p class="contact-title">聊聊下一个想法。</p>
+          <p class="contact-intro">关于 AI、产品，或一个值得尝试的方向。</p>
+          <div class="contact-actions">
+            <a class="action-button action-primary" href="mailto:liuyvbo2026@gmail.com">发邮件<span class="button-arrow" aria-hidden="true">↗</span></a>
+            <button class="action-button action-secondary copy-wechat" type="button" aria-label="复制微信号 liuyvbooooo"><svg viewBox="0 0 20 20" aria-hidden="true"><rect x="7" y="7" width="10" height="10" rx="2"/><path d="M12 4V3H3v9h1"/></svg><span class="copy-label">复制微信号</span></button>
+          </div>
           <dl class="contact-list">
-            <div class="contact-row">
-              <dt>邮箱 <span>EMAIL</span></dt>
-              <dd><a href="mailto:liuyvbo2026@gmail.com">liuyvbo2026@gmail.com<span aria-hidden="true">↗</span></a></dd>
-            </div>
-            <div class="contact-row">
-              <dt>手机 <span>PHONE</span></dt>
-              <dd><a href="tel:+8615383343642" aria-label="拨打 15383343642">153 8334 3642<span aria-hidden="true">↗</span></a></dd>
-            </div>
+            <div class="contact-row"><dt>邮箱</dt><dd><a href="mailto:liuyvbo2026@gmail.com">liuyvbo2026@gmail.com</a></dd></div>
+            <div class="contact-row"><dt>手机</dt><dd><a href="tel:+8615383343642" aria-label="拨打 15383343642">153 8334 3642</a></dd></div>
           </dl>
+          <p class="contact-status" role="status" aria-live="polite"></p>
         </div>
         <figure class="wechat-contact">
-          <div class="wechat-heading">微信扫一扫</div>
           <a class="qr-link" href="wechat-qr.jpg" target="_blank" rel="noopener noreferrer" aria-label="在新标签页查看刘禹博的微信二维码大图">
             <span class="qr-viewport"><img src="wechat-qr.jpg" alt="刘禹博的微信二维码，微信号 liuyvbooooo" width="856" height="812" loading="lazy"></span>
           </a>
-          <figcaption><span id="wechat-id">liuyvbooooo</span><button class="copy-wechat" type="button" aria-label="复制微信号 liuyvbooooo"><svg viewBox="0 0 20 20" aria-hidden="true"><rect x="7" y="7" width="10" height="10" rx="1.5"/><path d="M12 4V3H3v9h1"/></svg><span class="copy-label">复制</span></button></figcaption>
-          <p class="contact-status" role="status" aria-live="polite"></p>
+          <figcaption><span class="wechat-heading">微信扫一扫</span><span id="wechat-id">liuyvbooooo</span></figcaption>
         </figure>
       </div>
     </section>
   </main>
   <footer class="footer wrap"><span>© 2026 刘禹博</span><span class="growing"><i></i>持续生长中</span><a href="#about" aria-label="回到顶部">回到顶部 ↑</a></footer>
   <dialog id="detail" aria-labelledby="dialog-title"><div class="dialog-top"><span id="dialog-type"></span><button class="close" aria-label="关闭详情">关闭 <span aria-hidden="true">×</span></button></div><div class="dialog-body"><h2 id="dialog-title"></h2><div id="dialog-content"></div></div><div class="dialog-foot">个人空间 <span>慢慢积累，持续更新。</span></div></dialog>
-  <script src="script.js?v=default-grey-21"></script>
+  <script src="script.js?v=note-pairs-38"></script>
 </body>
 </html>
