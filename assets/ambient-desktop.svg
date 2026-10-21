@@ -1,0 +1,13 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="900" viewBox="0 0 1200 900" fill="none" stroke="#748191" stroke-width="3" stroke-linejoin="round">
+  <!-- Original retro interface motifs: windows, product sketches and AI conversation. -->
+  <g transform="translate(65 95)"><rect width="240" height="170" rx="3"/><path d="M0 26h240M12 9h9v9h-9zM34 9h190M34 17h190M18 48h80v96H18zM117 51h98M117 68h75M117 92h98M117 110h52M117 138h78"/></g>
+  <g transform="translate(530 40)"><path d="M0 0v102l24-24 21 45 19-9-22-43h37Z"/><path d="M100 0h8m12 0h8m-20 12h8m12 0h8" stroke-width="5"/></g>
+  <g transform="translate(830 100)"><rect width="200" height="140" rx="3"/><path d="M0 25h200M12 9h8v8h-8zM32 9h152M32 17h152M25 52h150v54H76l-23 18v-18H25zM48 76h8m14 0h8m14 0h8"/><path d="M129 66v28m-14-14h28"/></g>
+  <g transform="translate(350 360)"><path d="M0 24h65l18-24h91v130H0Z"/><path d="M18 55h138M18 73h92M18 91h110"/></g>
+  <g transform="translate(720 440)"><rect width="230" height="172" rx="3"/><path d="M0 26h230M12 9h8v8h-8zM34 9h180M34 17h180M22 50h52v40H22zM98 50h52v40H98zM174 50h34v40h-34zM48 90v26h76V90m0 26h66V90M98 135h52v22H98zM124 116v19"/></g>
+  <g transform="translate(70 600)"><path d="M20 0h140l20 20v135H0V20ZM20 0v50h140V0M30 88h120v67M120 10v25"/><path d="M47 108h85m-85 16h65"/></g>
+  <g transform="translate(1070 520)"><path d="M0 0h70v70H0zM18 22h8m18 0h8M20 48h30M35 0v-20m-8 0h16M-16 23H0m70 0h16" stroke-width="4"/></g>
+  <g transform="translate(430 720)"><path d="m0 36 25 25L77 0M115 15h190m-190 24h140m-140 24h165"/></g>
+  <g transform="translate(930 780)"><path d="M0 0v66l17-17 14 30 13-6-15-29h25Z"/></g>
+  <g stroke-width="3"><path d="M405 140h24m-12-12v24M1080 340h24m-12-12v24M245 490h24m-12-12v24M650 280h24m-12-12v24"/></g>
+</svg>

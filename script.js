@@ -72,18 +72,102 @@ updateNav();
 
 const copyWechat = document.querySelector('.copy-wechat');
 const contactStatus = document.querySelector('.contact-status');
-let copyReset;
+const contactStatusText = contactStatus.querySelector('.contact-status-text');
+const connectionGreetings = {
+  standard: { title: ['很高兴认识你'], lines: ['我们可以', '聊聊 AI', '聊聊产品', '聊聊未来'] },
+  earth: { title: ['很高兴', '在这颗星球上遇见你'], lines: ['愿世界和平', '愿每一个平凡的日子都值得期待'] }
+};
+const connectionGreetingsSeen = new Set();
+function prepareConnectionGreeting(variant) {
+  const greeting = connectionGreetings[variant];
+  connectionToast.dataset.greeting = variant;
+  const title = connectionToast.querySelector('.connection-message');
+  const letter = connectionToast.querySelector('.connection-letter');
+  title.replaceChildren(...greeting.title.map(line => {
+    const span = document.createElement('span'); span.textContent = line; return span;
+  }));
+  letter.replaceChildren();
+  greeting.lines.forEach((line, index) => {
+    const span = document.createElement('span'); span.textContent = line;
+    if (variant === 'standard' && index > 0) {
+      let topics = letter.querySelector('.connection-topics');
+      if (!topics) { topics = document.createElement('span'); topics.className = 'connection-topics'; letter.append(topics); }
+      topics.append(span);
+    } else letter.append(span);
+  });
+  return [...greeting.title, ...greeting.lines, '刘禹博'].join(' ');
+}
+const connectionToast = document.querySelector('.connection-toast');
+const connectionDismiss = connectionToast.querySelector('.connection-dismiss');
+const connectionTitle = document.querySelector('#contact-title');
+let connectionTrigger = copyWechat;
+let toastTimer, toastMotion;
+function hideConnectionToast() {
+  clearTimeout(toastTimer);
+  if (connectionToast.hidden) return;
+  if (connectionToast.contains(document.activeElement)) connectionTrigger.focus({preventScroll:true});
+  toastMotion?.cancel();
+  document.body.classList.remove('connection-active');
+  if (motionPreference.matches) { connectionToast.hidden = true; return; }
+  const animation = connectionToast.animate([{opacity:1},{opacity:0}],{duration:280,easing:'ease-in',fill:'both'});
+  toastMotion = animation;
+  animation.onfinish = () => { connectionToast.hidden = true; animation.cancel(); toastMotion = null; };
+}
+function showConnectionToast(trigger = copyWechat) {
+  connectionTrigger = trigger;
+  clearTimeout(toastTimer);
+  toastMotion?.cancel();
+  connectionToast.hidden = false;
+  document.body.classList.add('connection-active');
+  toastTimer = setTimeout(hideConnectionToast, 8000);
+}
+function replayConnectionGreeting() {
+  const variant = document.documentElement.dataset.appearance === 'desktop' ? 'earth' : 'standard';
+  prepareConnectionGreeting(variant);
+  // Restart the same entrance even when the previous greeting is still fading out.
+  connectionToast.hidden = true;
+  void connectionToast.offsetHeight;
+  showConnectionToast(connectionTitle);
+}
+connectionTitle.addEventListener('click', replayConnectionGreeting);
+connectionTitle.addEventListener('keydown', event => {
+  if (event.key === 'Enter') { event.preventDefault(); replayConnectionGreeting(); }
+});
+connectionDismiss.addEventListener('click', hideConnectionToast);
+document.addEventListener('pointerdown', event => {
+  if (!connectionToast.hidden && !connectionToast.contains(event.target)) hideConnectionToast();
+});
+document.addEventListener('keydown', event => { if (event.key === 'Escape' && !connectionToast.hidden) hideConnectionToast(); });
+motionPreference.addEventListener('change', () => { if (motionPreference.matches) { toastMotion?.finish(); } });
+let copyReset, copyPending = false;
 copyWechat.addEventListener('click', async () => {
+  if (copyPending) return;
+  copyPending = true;
+  copyWechat.setAttribute('aria-busy', 'true');
   const value = document.querySelector('#wechat-id').textContent.trim();
   clearTimeout(copyReset);
   try {
     await navigator.clipboard.writeText(value);
+    // Only a successful copy consumes this quiet, one-time greeting.
+    const variant = document.documentElement.dataset.appearance === 'desktop' ? 'earth' : 'standard';
+    const greetingKey = `liuyubo-connection-greeting-v8-${variant}-seen`;
+    let seen = connectionGreetingsSeen.has(variant);
+    try { seen ||= localStorage.getItem(greetingKey) === '1'; } catch {}
+    const firstConnection = !seen;
+    connectionGreetingsSeen.add(variant);
+    try { localStorage.setItem(greetingKey, '1'); } catch {}
     copyWechat.querySelector('.copy-label').textContent = '已复制';
-    contactStatus.textContent = '微信号已复制，打开微信搜索即可添加。';
+    contactStatus.classList.toggle('is-connection', firstConnection);
+    contactStatusText.textContent = firstConnection
+      ? `微信号已复制 ${prepareConnectionGreeting(variant)}`
+      : '微信号已复制，打开微信搜索即可添加。';
+    if (firstConnection) showConnectionToast();
+    else hideConnectionToast();
     copyReset = setTimeout(() => {
       copyWechat.querySelector('.copy-label').textContent = '复制微信号';
-      contactStatus.textContent = '';
-    }, 4000);
+      contactStatusText.textContent = '';
+      contactStatus.classList.remove('is-connection');
+    }, firstConnection ? 8300 : 4000);
   } catch {
     const range = document.createRange();
     range.selectNodeContents(document.querySelector('#wechat-id'));
@@ -91,14 +175,18 @@ copyWechat.addEventListener('click', async () => {
     selection.removeAllRanges();
     selection.addRange(range);
     copyWechat.querySelector('.copy-label').textContent = '复制微信号';
-    contactStatus.textContent = '微信号已选中，请长按或使用系统复制快捷键。';
+    contactStatus.classList.remove('is-connection');
+    contactStatusText.textContent = '微信号已选中，请长按或使用系统复制快捷键。';
+  } finally {
+    copyPending = false;
+    copyWechat.removeAttribute('aria-busy');
   }
 });
 
 const projects = [
-  {name:'智能制造协同平台',stage:'示例方案',summary:'为生产团队集中管理任务与现场异常，让处理进度更容易追踪。',category:'智能制造 / 业务协同',role:'待补充',work:'流程梳理 · 任务协同',result:'待补充',cover:'project-manufacturing.svg',detail:{type:'PROJECT / 01 · 示例',title:'智能制造协同平台',paragraphs:['场景设想：生产任务与现场异常分散在多个沟通渠道，进度难以追踪。','方案示例：通过统一工作台串联任务安排、异常反馈与处理状态，让不同角色看到各自需要的信息。','这里可以进一步展示业务流程、角色权限、关键界面和验收标准。'],notice:'示例项目 · 用于展示作品集结构，并非已交付的真实项目。'}},
-  {name:'AI 企业知识助手',stage:'概念探索',summary:'帮助企业员工从分散资料中找到答案，并核对回答依据。',category:'企业效率 / AI 应用',role:'待补充',work:'知识检索 · 来源追溯',result:'待补充',cover:'project-knowledge.svg',detail:{type:'PROJECT / 02 · 示例',title:'AI 企业知识助手',paragraphs:['场景设想：企业资料分散，查找答案需要反复检索和向同事确认。','方案示例：结合知识检索与 AI 问答，呈现答案和相关资料来源，方便用户核对。','这里可以补充知识范围、权限设计、回答质量评测，以及无法回答时的处理方式。'],notice:'示例项目 · 概念内容仅用于预览，暂无真实业务数据或效果结论。'}},
-  {name:'AI 个人效率助手',stage:'交互原型',summary:'帮助个人把零散想法整理成任务清单，让下一步行动更清楚。',category:'个人效率 / ToC AI',role:'待补充',work:'任务整理 · 行动建议',result:'待补充',cover:'project-personal.svg',detail:{type:'PROJECT / 03 · 示例',title:'AI 个人效率助手',paragraphs:['场景设想：想法与待办随手记在各处，真正开始行动时难以理清优先级。','方案示例：帮助用户整理零散输入，生成可修改的任务清单与下一步建议。','这里可以展示核心使用路径、交互原型与用户反馈，并说明哪些建议仍需用户确认。'],notice:'示例项目 · 用于演示 ToC 产品的作品呈现方式，并非真实上线产品。'}}
+  {name:'智能制造协同平台',stage:'示例方案',summary:'为生产团队集中管理任务与现场异常，让处理进度更容易追踪。',category:'智能制造 / 业务协同',role:'待补充',work:'流程梳理 · 任务协同',result:'待补充',cover:'assets/project-manufacturing.svg',detail:{type:'PROJECT / 01 · 示例',title:'智能制造协同平台',paragraphs:['场景设想：生产任务与现场异常分散在多个沟通渠道，进度难以追踪。','方案示例：通过统一工作台串联任务安排、异常反馈与处理状态，让不同角色看到各自需要的信息。','这里可以进一步展示业务流程、角色权限、关键界面和验收标准。'],notice:'示例项目 · 用于展示作品集结构，并非已交付的真实项目。'}},
+  {name:'AI 企业知识助手',stage:'概念探索',summary:'帮助企业员工从分散资料中找到答案，并核对回答依据。',category:'企业效率 / AI 应用',role:'待补充',work:'知识检索 · 来源追溯',result:'待补充',cover:'assets/project-knowledge.svg',detail:{type:'PROJECT / 02 · 示例',title:'AI 企业知识助手',paragraphs:['场景设想：企业资料分散，查找答案需要反复检索和向同事确认。','方案示例：结合知识检索与 AI 问答，呈现答案和相关资料来源，方便用户核对。','这里可以补充知识范围、权限设计、回答质量评测，以及无法回答时的处理方式。'],notice:'示例项目 · 概念内容仅用于预览，暂无真实业务数据或效果结论。'}},
+  {name:'AI 个人效率助手',stage:'交互原型',summary:'帮助个人把零散想法整理成任务清单，让下一步行动更清楚。',category:'个人效率 / ToC AI',role:'待补充',work:'任务整理 · 行动建议',result:'待补充',cover:'assets/project-personal.svg',detail:{type:'PROJECT / 03 · 示例',title:'AI 个人效率助手',paragraphs:['场景设想：想法与待办随手记在各处，真正开始行动时难以理清优先级。','方案示例：帮助用户整理零散输入，生成可修改的任务清单与下一步建议。','这里可以展示核心使用路径、交互原型与用户反馈，并说明哪些建议仍需用户确认。'],notice:'示例项目 · 用于演示 ToC 产品的作品呈现方式，并非真实上线产品。'}}
 ];
 let projectIndex = 0;
 const projectGallery = document.querySelector('.project-gallery');
@@ -253,3 +341,4 @@ showNotePage(0, false);
   finePointer.addEventListener('change', render);
   render();
 })();
+

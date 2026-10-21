@@ -1,0 +1,8 @@
+Desktop wallpaper imported at user request, 2026-10-20.
+Apple aerial: Iran and Afghanistan
+Asset ID: F439B0A7-D18C-4B14-9681-6520E6A74FE9
+Source: /Users/Admin/Library/Application Support/com.apple.wallpaper/aerials/videos/F439B0A7-D18C-4B14-9681-6520E6A74FE9.mov
+Selected asset verified via com.apple.wallpaper/Store/Index.plist.
+Original: 3840 x 2160, 239.76 fps, 87.8917 seconds.
+Web derivative: original full-duration moving footage, 3840 x 2160 at 30 fps, MP4. Poster is first frame only, used while video loads or reduced motion is enabled.
+Used as the optional wallpaper Easter egg of https://liuyvbo2026.github.io/.

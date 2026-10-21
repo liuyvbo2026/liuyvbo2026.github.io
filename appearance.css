@@ -1,0 +1,106 @@
+html[data-backdrop="desktop"] .product-icons{visibility:hidden}
+html[data-backdrop="desktop"] .ambient-wallpaper{background:#030711}
+html[data-backdrop="desktop"] .ambient-wallpaper:after{
+ background:linear-gradient(90deg,rgba(2,5,12,.20),rgba(2,5,12,.04) 50%,transparent),linear-gradient(0deg,rgba(2,5,12,.15),transparent 65%);
+}
+/* One space palette, independent of the visitor's saved light/dark preference. */
+html:root[data-backdrop="desktop"]{
+ --paper:#030711;
+ --tone-ink:#f4f7fc;--tone-ink-hover:#fff;--tone-secondary:#d2deef;
+ --tone-body:#becce0;--tone-caption:#a7b8d0;
+ --tone-paper:#050b17;--tone-white:#0b1526;--tone-surface:#101f35;
+ --tone-edge:rgba(183,210,248,.20);--tone-edge-hover:rgba(208,226,251,.36);
+ --liquid-fill:rgba(16,32,56,.40);--liquid-edge:rgba(196,222,255,.23);
+ --liquid-selected-fill:rgba(168,201,246,.17);--liquid-glint:rgba(183,214,255,.06);
+ --liquid-plane-glint:rgba(200,224,255,.025);--liquid-hover-glint:rgba(200,224,255,.035);
+}
+/* The full-viewport scrim handles contrast. Section-sized radial scrims
+   were clipped before reaching transparency, exposing hard vertical seams. */
+body[data-visual="liquid"] .hero::before,
+body[data-visual="liquid"] #contact::before{content:none}
+@media(max-width:540px){
+ html[data-backdrop="desktop"] .ambient-wallpaper:after{background:rgba(3,7,17,.16)}
+}
+.appearance-trigger{background:transparent;border:0;box-shadow:none;padding:0;border-radius:0;color:inherit;touch-action:manipulation;-webkit-user-select:none;user-select:none}
+
+/* Align the contact columns to one top edge, independent of caption height. */
+body[data-visual="liquid"] #contact .contact-layout{align-items:start}
+body[data-visual="liquid"] #contact .wechat-contact{align-self:start;margin:0}
+body[data-visual="liquid"] #contact .wechat-contact figcaption{
+ margin-top:16px;gap:4px;text-align:center;
+}
+body[data-visual="liquid"] #contact .wechat-heading{line-height:18px}
+body[data-visual="liquid"] #contact #wechat-id{line-height:20px;letter-spacing:.35px}
+@media(max-width:600px){
+ body[data-visual="liquid"] #contact .wechat-contact{justify-self:start}
+ body[data-visual="liquid"] #contact .contact-layout{row-gap:24px}
+}
+
+/* A quiet, centered greeting using the site's own type and theme palette. */
+body[data-visual="liquid"] #contact .contact-status{min-height:20px;padding:0;color:var(--tone-body)}
+.contact-status.is-connection .contact-status-text{position:absolute;width:1px;height:1px;overflow:hidden;clip-path:inset(50%);white-space:nowrap}
+body[data-visual="liquid"]>.header,body[data-visual="liquid"]>main,body[data-visual="liquid"]>.footer{transition:opacity 450ms ease}
+body.connection-active>.header,body.connection-active>main,body.connection-active>.footer{opacity:.16}
+.connection-toast[hidden]{display:none}
+.connection-toast{
+ position:fixed;z-index:100;inset:0;margin:0;padding:24px;box-sizing:border-box;
+ display:flex;flex-direction:column;justify-content:center;align-items:center;text-align:center;
+ background:none;border:0;box-shadow:none;backdrop-filter:none;-webkit-backdrop-filter:none;
+ color:var(--tone-ink);pointer-events:none;
+}
+.connection-copy{width:min(560px,100%);font-family:inherit}
+.connection-copy p{margin:0}
+.connection-message>span,.connection-letter>span{display:block}
+.connection-message>span+span{margin-top:6px}
+.connection-letter .connection-topics{display:flex;justify-content:center;gap:22px;margin-top:8px}
+.connection-letter>span+span{margin-top:8px}
+.connection-toast[data-greeting="earth"] .connection-message{font-size:clamp(24px,2.7vw,32px)}
+.connection-copy [data-connection-line]{animation:connection-arrive 700ms var(--reply-delay) cubic-bezier(.22,1,.36,1) both}
+.connection-copy .connection-message{font-size:clamp(28px,3vw,36px);line-height:1.4;font-weight:600;letter-spacing:-.6px}
+.connection-copy .connection-letter{margin-top:24px;font-size:18px;line-height:1.9;font-weight:400;color:var(--tone-secondary)}
+.connection-copy .connection-signature{margin-top:32px;font-size:14px;line-height:1.5;font-weight:500;letter-spacing:2px;color:var(--tone-secondary)}
+@keyframes connection-arrive{from{opacity:0;transform:translateY(5px)}to{opacity:1;transform:translateY(0)}}
+.connection-dismiss{display:grid;place-items:center;width:44px;height:44px;margin-top:24px;padding:0;border:0;border-radius:50%;background:none;color:var(--tone-caption);cursor:pointer;pointer-events:auto;animation:connection-arrive 700ms 550ms both}
+.connection-dismiss svg{width:18px;height:18px;fill:none;stroke:currentColor;stroke-width:1.4;stroke-linecap:round}
+.connection-dismiss:hover{color:var(--tone-ink)}
+.connection-dismiss:focus-visible{outline:2px solid var(--tone-secondary);outline-offset:3px}
+@media(max-width:540px){
+ .connection-copy .connection-letter{font-size:16px;margin-top:20px}
+ .connection-letter .connection-topics{gap:16px}
+ .connection-toast[data-greeting="earth"] .connection-letter{font-size:15px}
+ .connection-copy .connection-signature{margin-top:28px}
+}
+@media(max-height:500px){
+ .connection-copy .connection-message{font-size:28px}
+ .connection-copy .connection-letter{font-size:16px;margin-top:16px}
+ .connection-copy .connection-signature,.connection-dismiss{margin-top:16px}
+}
+@media(prefers-reduced-motion:reduce){
+ .connection-copy [data-connection-line],.connection-dismiss{animation:none}
+ body[data-visual="liquid"]>.header,body[data-visual="liquid"]>main,body[data-visual="liquid"]>.footer{transition:none}
+}
+
+#contact-title{user-select:none;-webkit-user-select:none}
+#contact-title:focus-visible{outline:2px solid var(--tone-secondary);outline-offset:8px;border-radius:4px}
+
+
+/* The Apple aerial is the only wallpaper Easter egg, activated by three taps. */
+.apple-earth-scene{position:absolute;inset:0;display:none;background:#02040a url("assets/desktop-earth.jpg") center/cover no-repeat}
+.apple-earth-video{display:block;width:100%;height:100%;object-fit:cover;opacity:0;transition:opacity 800ms ease}
+.apple-earth-video.is-playing{opacity:1}
+html[data-earth-source="apple"] .apple-earth-scene{display:block}
+@media(prefers-reduced-motion:reduce){.apple-earth-video{display:none;transition:none}}
+
+/* Dissolve the old complete frame over the new one, without a white/black flash. */
+html.appearance-transition::view-transition{pointer-events:none}
+html.appearance-transition::view-transition-group(root){animation:none}
+html.appearance-transition::view-transition-image-pair(root){isolation:isolate}
+html.appearance-transition::view-transition-old(root){
+ animation:appearance-dissolve 800ms cubic-bezier(.4,0,.2,1) both;
+ mix-blend-mode:normal;z-index:2;
+}
+html.appearance-transition::view-transition-new(root){animation:none;mix-blend-mode:normal;z-index:1}
+@keyframes appearance-dissolve{from{opacity:1}to{opacity:0}}
+@media(prefers-reduced-motion:reduce){
+ html.appearance-transition::view-transition-old(root){animation:none}
+}

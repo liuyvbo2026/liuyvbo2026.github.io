@@ -1,0 +1,121 @@
+/* Independent Liquid Glass study. The original website is not modified. */
+:root{
+ --liquid-fill:rgba(255,255,255,.30);
+ --liquid-edge:rgba(255,255,255,.95);
+ --liquid-highlight:rgba(255,255,255,1);
+ --liquid-plane-glint:rgba(255,255,255,.26);
+ --liquid-hover-glint:rgba(255,255,255,.34);
+ --liquid-selected-fill:rgba(255,255,255,.52);
+ --liquid-filter:blur(12px) saturate(150%);
+ --liquid-glint:rgba(255,255,255,.46);
+ --liquid-rim:rgba(49,54,61,.075);
+ --liquid-shadow:0 2px 4px rgba(32,38,46,.045),0 12px 30px -15px rgba(32,38,46,.25);
+ --liquid-control-shadow:0 1px 2px rgba(32,38,46,.045),0 8px 18px -9px rgba(32,38,46,.26);
+ --deck-back-edge:rgba(255,255,255,.48);
+ --deck-middle-edge:rgba(255,255,255,.76);
+ --deck-occlusion:rgba(32,38,46,.18);
+}
+:root[data-theme="dark"]{
+ --liquid-fill:rgba(170,174,180,.10);
+ --liquid-edge:rgba(255,255,255,.24);
+ --liquid-highlight:rgba(255,255,255,.27);
+ --liquid-plane-glint:rgba(255,255,255,.025);
+ --liquid-hover-glint:rgba(255,255,255,.035);
+ --liquid-selected-fill:rgba(220,222,226,.14);
+ --liquid-glint:rgba(255,255,255,.045);
+ --liquid-rim:rgba(0,0,0,.2);
+ --liquid-shadow:0 2px 5px rgba(0,0,0,.16),0 16px 36px -14px rgba(0,0,0,.5);
+ --liquid-control-shadow:0 1px 2px rgba(0,0,0,.15),0 8px 18px -9px rgba(0,0,0,.48);
+ --deck-back-edge:rgba(255,255,255,.10);
+ --deck-middle-edge:rgba(255,255,255,.17);
+ --deck-occlusion:rgba(0,0,0,.46);
+}
+/* Light travels across the surface while the backdrop remains softly visible. */
+html:root[data-theme] body[data-wallpaper][data-visual="liquid"] :where(.header nav,.header nav a[aria-current],.action-button,.project-details,.theme-toggle,.close,.note-open,.note,.project-panel,.deck-preview,.project-visual,.badge,dialog),
+html:root[data-theme] body[data-visual="liquid"] #contact .qr-viewport,
+html:root[data-theme] body[data-visual="liquid"] #contact .copy-wechat{
+ --glass-x:30%;--glass-y:0%;
+ background:
+  linear-gradient(110deg,transparent calc(var(--glass-x) - 30%),var(--liquid-plane-glint) var(--glass-x),transparent calc(var(--glass-x) + 30%)),var(--liquid-fill);
+ border:1px solid var(--liquid-edge);
+ color:var(--tone-ink);
+ -webkit-backdrop-filter:var(--liquid-filter);
+ backdrop-filter:var(--liquid-filter);
+ box-shadow:var(--liquid-shadow);
+}
+html:root[data-theme] body[data-wallpaper][data-visual="liquid"] :where(.header nav,.action-button,.project-details,.theme-toggle,.close,.note-open),
+html:root[data-theme] body[data-visual="liquid"] #contact .copy-wechat{
+ box-shadow:var(--liquid-control-shadow);
+}
+html:root[data-theme] body[data-wallpaper][data-visual="liquid"] .header nav a{color:var(--tone-secondary)}
+html:root[data-theme] body[data-wallpaper][data-visual="liquid"] .header nav a[aria-current]{
+ color:var(--tone-ink);
+ background-color:var(--liquid-selected-fill);
+ box-shadow:0 1px 3px var(--liquid-rim);
+}
+html:root[data-theme] body[data-wallpaper][data-visual="liquid"] .header nav a:hover:not([aria-current]){background:var(--liquid-glint)}
+/* The same flat material at every size; only the elevation changes. */
+html:root[data-theme] body[data-wallpaper][data-visual="liquid"] :where(.note,.project-panel,dialog){
+ border-radius:28px;
+}
+html:root[data-theme] body[data-wallpaper][data-visual="liquid"] :where(.project-visual,.badge){
+ box-shadow:0 1px 3px var(--liquid-rim);
+}
+html:root[data-theme] body[data-wallpaper][data-visual="liquid"] .deck-preview{color:var(--tone-secondary);border-radius:28px}
+/* Identical glass color on all three sheets; only edge light and contact
+   shadows describe depth. Labels stay fully opaque. */
+html:root[data-theme] body[data-wallpaper][data-visual="liquid"] .deck-back{
+ opacity:1;
+ border-color:var(--deck-back-edge);
+ box-shadow:0 3px 8px -5px var(--deck-occlusion);
+}
+html:root[data-theme] body[data-wallpaper][data-visual="liquid"] .deck-middle{
+ opacity:1;
+ border-color:var(--deck-middle-edge);
+ box-shadow:0 -3px 8px -4px var(--deck-occlusion),0 5px 12px -8px var(--deck-occlusion);
+}
+html:root[data-theme] body[data-wallpaper][data-visual="liquid"] .project-deck .project-panel{
+ box-shadow:0 -4px 12px -5px var(--deck-occlusion),var(--liquid-shadow);
+}
+html:root[data-theme] body[data-wallpaper][data-visual="liquid"] dialog{
+ --liquid-fill:rgba(255,255,255,.72);
+ box-shadow:0 24px 80px -20px rgba(24,30,38,.32);
+}
+html:root[data-theme="dark"] body[data-wallpaper][data-visual="liquid"] dialog{--liquid-fill:rgba(30,32,36,.82)}
+body[data-visual="liquid"] dialog::backdrop{background:rgba(26,31,39,.16);-webkit-backdrop-filter:blur(6px);backdrop-filter:blur(6px)}
+/* All QR faces share the cards' flat glass; no opaque paper or outer sleeve. */
+html:root[data-theme] body[data-visual="liquid"] #contact .qr-viewport{
+ overflow:hidden;border-radius:28px;
+}
+html:root[data-theme] body[data-visual="liquid"] #contact .qr-viewport img{
+ /* Convert the original paper to transparency without changing module geometry. */
+ filter:url(#qr-glass-ink);
+ mix-blend-mode:normal;
+}
+html:root[data-theme="dark"] body[data-visual="liquid"] #contact .qr-viewport img{
+ filter:url(#qr-glass-ink-dark);
+}
+/* Bare chevrons retain their familiar hit area without adding new chrome. */
+html:root[data-theme] body[data-wallpaper][data-visual="liquid"] .project-navigation button{background:transparent;border:0;box-shadow:none;-webkit-backdrop-filter:none;backdrop-filter:none}
+@media(hover:hover) and (pointer:fine){
+ html:root[data-theme] body[data-wallpaper][data-visual="liquid"] :where(.action-button,.project-details,.theme-toggle,.close,.note,.header nav a[aria-current]):hover,
+ html:root[data-theme] body[data-visual="liquid"] #contact .copy-wechat:hover{
+  --liquid-plane-glint:var(--liquid-hover-glint);border-color:var(--liquid-highlight);
+ }
+}
+html:root[data-theme] body[data-wallpaper][data-visual="liquid"] :where(.action-button,.project-details,.theme-toggle,.close):active,
+html:root[data-theme] body[data-visual="liquid"] #contact .copy-wechat:active{
+ scale:.97;box-shadow:0 2px 6px -3px var(--liquid-rim);
+}
+@media(max-width:540px){
+ html:root[data-theme] body[data-wallpaper][data-visual="liquid"] :where(.note,.project-panel,dialog){border-radius:24px}
+}
+@media(prefers-reduced-motion:reduce){body[data-visual="liquid"]{--glass-x:30%;--glass-y:0%}}
+@supports not ((backdrop-filter:blur(1px)) or (-webkit-backdrop-filter:blur(1px))){
+ html:root[data-theme] body[data-wallpaper][data-visual="liquid"] :where(.header nav,.note,.project-panel,.deck-preview,.action-button,.project-details,.theme-toggle,dialog),
+ html:root[data-theme] body[data-visual="liquid"] #contact .copy-wechat{background:var(--tone-paper)}
+}
+@media(prefers-contrast:more){
+ html:root[data-theme] body[data-wallpaper][data-visual="liquid"] :where(.header nav,.note,.project-panel,.deck-preview,.action-button,.project-details,.theme-toggle,dialog),
+ html:root[data-theme] body[data-visual="liquid"] #contact .copy-wechat{background:var(--tone-paper);border-color:var(--tone-edge-hover)}
+}

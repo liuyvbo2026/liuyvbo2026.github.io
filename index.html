@@ -5,17 +5,32 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="description" content="刘禹博，聚焦智能制造与 AI 产品落地的产品经理，具备企业效率工具和 ToC AI 产品从 0 到 1 经验。">
   <meta name="theme-color" content="#ffffff">
-  <title>刘禹博 · AI 产品经理</title>
+  <title>刘禹博 · 液态玻璃预览</title>
   <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 40 40'%3E%3Crect width='40' height='40' fill='white'/%3E%3Cpath d='M9 30V10h22M19 30V20h12' fill='none' stroke='%23151515' stroke-width='2'/%3E%3C/svg%3E">
-  <link rel="stylesheet" href="styles.css?v=note-pairs-38">
+  <script>
+    (() => {
+      const dark = matchMedia('(prefers-color-scheme: dark)').matches;
+      const root = document.documentElement;
+      root.dataset.appearance = dark ? 'pixel-dark' : 'pixel-light';
+      root.dataset.backdrop = 'pixel';
+      root.dataset.theme = dark ? 'dark' : 'light';
+      document.querySelector('meta[name="theme-color"]').content = dark ? '#161617' : '#ffffff';
+    })();
+  </script>
+  <link rel="preload" as="image" href="assets/ai-product-grey-pixels.png">
+  <link rel="stylesheet" href="styles.css?v=soft-depth-56">
+  <link rel="stylesheet" href="liquid-glass.css?v=16">
+  <link rel="stylesheet" href="appearance.css?v=soft-switch-4">
 </head>
-<body data-wallpaper="grey">
-  <div class="ambient-wallpaper" data-style="grey" aria-hidden="true"><div class="product-scene product-icons"></div></div>
+<body data-wallpaper="grey" data-visual="liquid">
+  <div class="ambient-wallpaper" data-style="grey" aria-hidden="true"><div class="product-scene product-icons"></div><div class="apple-earth-scene"><video class="apple-earth-video" muted playsinline loop preload="none" poster="assets/desktop-earth.jpg" aria-hidden="true"></video></div></div>
   <a class="skip" href="#main">跳到主要内容</a>
   <header class="header wrap">
-    <div class="brand"><span class="brand-en">LIU YUBO</span></div>
+    <button class="brand appearance-trigger" type="button" aria-label="LIU YUBO" aria-describedby="appearance-hint"><span class="brand-en">LIU YUBO</span></button>
+    <span id="appearance-hint" class="sr-only">连续三击探索苹果壁纸 再三击返回系统外观</span>
     <div class="header-tools">
     <nav aria-label="主导航"><a href="#about" aria-current="location">关于</a><a href="#works">作品</a><a href="#notes">文章</a><a href="#contact">联系</a></nav>
+    <span id="wallpaper-status" class="sr-only" role="status"></span>
     </div>
   </header>
   <main id="main" class="wrap">
@@ -29,7 +44,7 @@
         <div class="hero-profile">
           <p class="hero-description"><span>具备企业效率工具和 ToC AI 产品从 0 到 1 经验。</span><span>聚焦业务洞察、AI 方案设计、评测验收与跨团队交付。</span></p>
           <div class="hero-actions">
-            <a class="action-button action-primary" href="https://github.com/liuyvbo2026" target="_blank" rel="noopener noreferrer" aria-label="访问刘禹博的 GitHub 主页（新标签页）"><svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M12 .9a11.1 11.1 0 0 0-3.5 21.6c.55.1.76-.24.76-.54v-2.06c-3.1.68-3.75-1.3-3.75-1.3-.5-1.28-1.23-1.62-1.23-1.62-1.02-.7.08-.68.08-.68 1.13.08 1.73 1.16 1.73 1.16 1 .1.47 2.08 3.22 1.45.1-.72.4-1.21.72-1.49-2.48-.28-5.1-1.24-5.1-5.52 0-1.22.44-2.22 1.15-3-.12-.28-.5-1.42.1-2.96 0 0 .94-.3 3.06 1.14a10.6 10.6 0 0 1 5.56 0c2.12-1.44 3.05-1.14 3.05-1.14.61 1.54.23 2.68.12 2.96.71.78 1.14 1.78 1.14 3 0 4.29-2.62 5.23-5.12 5.5.4.35.76 1.03.76 2.07v3.1c0 .3.2.65.77.54A11.1 11.1 0 0 0 12 .9Z"/></svg>GitHub <span class="button-arrow" aria-hidden="true">↗</span></a>
+            <a class="action-button action-secondary" href="https://github.com/liuyvbo2026" target="_blank" rel="noopener noreferrer" aria-label="访问刘禹博的 GitHub 主页（新标签页）"><svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M12 .9a11.1 11.1 0 0 0-3.5 21.6c.55.1.76-.24.76-.54v-2.06c-3.1.68-3.75-1.3-3.75-1.3-.5-1.28-1.23-1.62-1.23-1.62-1.02-.7.08-.68.08-.68 1.13.08 1.73 1.16 1.73 1.16 1 .1.47 2.08 3.22 1.45.1-.72.4-1.21.72-1.49-2.48-.28-5.1-1.24-5.1-5.52 0-1.22.44-2.22 1.15-3-.12-.28-.5-1.42.1-2.96 0 0 .94-.3 3.06 1.14a10.6 10.6 0 0 1 5.56 0c2.12-1.44 3.05-1.14 3.05-1.14.61 1.54.23 2.68.12 2.96.71.78 1.14 1.78 1.14 3 0 4.29-2.62 5.23-5.12 5.5.4.35.76 1.03.76 2.07v3.1c0 .3.2.65.77.54A11.1 11.1 0 0 0 12 .9Z"/></svg>GitHub <span class="button-arrow" aria-hidden="true">↗</span></a>
             <a class="action-button action-secondary" href="#contact">联系我 <span class="button-arrow" aria-hidden="true">↗</span></a>
           </div>
         </div>
@@ -51,13 +66,13 @@
             <div><dt>核心工作<span>（示例）</span></dt><dd id="project-work">流程梳理 · 任务协同</dd></div>
             <div><dt>状态 / 成果</dt><dd id="project-result">待补充</dd></div>
           </dl>
-          <figure class="project-visual"><img id="project-cover" src="project-manufacturing.svg" width="900" height="414" alt="智能制造协同平台的示例界面"><figcaption>界面示意 · 非真实项目截图</figcaption></figure>
+          <figure class="project-visual"><img id="project-cover" src="assets/project-manufacturing.svg" width="900" height="414" alt="智能制造协同平台的示例界面"><figcaption>界面示意 · 非真实项目截图</figcaption></figure>
           <div class="project-bottom"><p>真实项目资料待补充</p><button class="project-details" type="button" data-dialog="project" aria-label="查看智能制造协同平台详情">查看项目详情 <span aria-hidden="true">↗</span></button></div>
         </article>
           </div>
           <div class="project-navigation" aria-label="项目切换">
-            <button class="project-prev" type="button" aria-label="上一个项目" aria-controls="project-slide"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M19 12H5m6-6-6 6 6 6"/></svg></button>
-            <button class="project-next" type="button" aria-label="下一个项目" aria-controls="project-slide"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14m-6-6 6 6-6 6"/></svg></button>
+            <button class="project-prev" type="button" aria-label="上一个项目" aria-controls="project-slide"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="m14 6-6 6 6 6"/></svg></button>
+            <button class="project-next" type="button" aria-label="下一个项目" aria-controls="project-slide"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="m10 6 6 6-6 6"/></svg></button>
           </div>
         </div>
           <p class="project-position" aria-label="项目页码"><span id="project-current">01</span><span class="position-divider">/</span><span id="project-total">03</span></p>
@@ -85,8 +100,8 @@
         </button>
           </div>
           <div class="project-navigation note-navigation" aria-label="笔记翻页">
-            <button class="project-prev note-prev" type="button" aria-label="上一页笔记" disabled aria-controls="note-pages"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M19 12H5m6-6-6 6 6 6"/></svg></button>
-            <button class="project-next note-next" type="button" aria-label="下一页笔记" disabled aria-controls="note-pages"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14m-6-6 6 6-6 6"/></svg></button>
+            <button class="project-prev note-prev" type="button" aria-label="上一页笔记" disabled aria-controls="note-pages"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="m14 6-6 6 6 6"/></svg></button>
+            <button class="project-next note-next" type="button" aria-label="下一页笔记" disabled aria-controls="note-pages"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="m10 6 6 6-6 6"/></svg></button>
           </div>
         </div>
         <p class="project-position note-position" aria-label="笔记页码"><span id="note-current">01</span><span class="position-divider">/</span><span id="note-total">01</span></p>
@@ -95,25 +110,25 @@
       </div>
     </section>
     <section id="contact" class="section-grid contact" aria-labelledby="contact-title">
-      <h2 class="section-label" id="contact-title"><span class="section-eyebrow">03 / GET IN TOUCH</span><span class="section-name">保持联系</span></h2>
+      <h2 class="section-label" id="contact-title" tabindex="0" aria-description="单击或按回车查看问候"><span class="section-eyebrow">03 / GET IN TOUCH</span><span class="section-name">保持联系</span></h2>
       <div class="section-content contact-layout">
         <div class="contact-direct">
           <p class="contact-title">聊聊下一个想法。</p>
           <p class="contact-intro">关于 AI、产品，或一个值得尝试的方向。</p>
           <div class="contact-actions">
-            <a class="action-button action-primary" href="mailto:liuyvbo2026@gmail.com">发邮件<span class="button-arrow" aria-hidden="true">↗</span></a>
+            <a class="action-button action-secondary" href="mailto:liuyvbo2026@gmail.com">发邮件<span class="button-arrow" aria-hidden="true">↗</span></a>
             <button class="action-button action-secondary copy-wechat" type="button" aria-label="复制微信号 liuyvbooooo"><svg viewBox="0 0 20 20" aria-hidden="true"><rect x="7" y="7" width="10" height="10" rx="2"/><path d="M12 4V3H3v9h1"/></svg><span class="copy-label">复制微信号</span></button>
           </div>
           <dl class="contact-list">
             <div class="contact-row"><dt>邮箱</dt><dd><a href="mailto:liuyvbo2026@gmail.com">liuyvbo2026@gmail.com</a></dd></div>
             <div class="contact-row"><dt>手机</dt><dd><a href="tel:+8615383343642" aria-label="拨打 15383343642">153 8334 3642</a></dd></div>
           </dl>
-          <p class="contact-status" role="status" aria-live="polite"></p>
+          <p class="contact-status" role="status" aria-live="polite" aria-atomic="true"><span class="contact-status-text"></span></p>
         </div>
         <figure class="wechat-contact">
-          <a class="qr-link" href="wechat-qr.jpg" target="_blank" rel="noopener noreferrer" aria-label="在新标签页查看刘禹博的微信二维码大图">
-            <span class="qr-viewport"><img src="wechat-qr.jpg" alt="刘禹博的微信二维码，微信号 liuyvbooooo" width="856" height="812" loading="lazy"></span>
-          </a>
+          <div class="qr-display">
+            <span class="qr-viewport"><img src="assets/wechat-qr.jpg" alt="刘禹博的微信二维码，微信号 liuyvbooooo" width="856" height="812" loading="lazy" draggable="false"></span>
+          </div>
           <figcaption><span class="wechat-heading">微信扫一扫</span><span id="wechat-id">liuyvbooooo</span></figcaption>
         </figure>
       </div>
@@ -121,6 +136,26 @@
   </main>
   <footer class="footer wrap"><span>© 2026 刘禹博</span><span class="growing"><i></i>持续生长中</span><a href="#about" aria-label="回到顶部">回到顶部 ↑</a></footer>
   <dialog id="detail" aria-labelledby="dialog-title"><div class="dialog-top"><span id="dialog-type"></span><button class="close" aria-label="关闭详情">关闭 <span aria-hidden="true">×</span></button></div><div class="dialog-body"><h2 id="dialog-title"></h2><div id="dialog-content"></div></div><div class="dialog-foot">个人空间 <span>慢慢积累，持续更新。</span></div></dialog>
-  <script src="script.js?v=note-pairs-38"></script>
+  <aside class="connection-toast" aria-label="一次新的连接" hidden>
+    <div class="connection-copy">
+      <p class="connection-message" data-connection-line style="--reply-delay:80ms">很高兴认识你</p>
+      <div class="connection-letter" data-connection-line style="--reply-delay:240ms"><span>我们可以</span><span class="connection-topics"><span>聊聊 AI</span><span>聊聊产品</span><span>聊聊未来</span></span></div>
+      <p class="connection-signature" data-connection-line style="--reply-delay:420ms">刘禹博</p>
+    </div>
+    <button class="connection-dismiss" type="button" aria-label="关闭连接提示"><svg viewBox="0 0 20 20" aria-hidden="true"><path d="m6 6 8 8M14 6l-8 8"/></svg></button>
+  </aside>
+  <svg width="0" height="0" aria-hidden="true" focusable="false" style="position:absolute;pointer-events:none"><defs>
+    <filter id="qr-glass-ink" color-interpolation-filters="sRGB" x="-1%" y="-1%" width="102%" height="102%">
+      <feColorMatrix type="matrix" values="0 0 0 0 .09  0 0 0 0 .11  0 0 0 0 .14  -.19134 -.64368 -.06498 0 .9"/>
+      <feDropShadow dx="0" dy=".35" stdDeviation=".15" flood-color="white" flood-opacity=".5"/>
+    </filter>
+    <filter id="qr-glass-ink-dark" color-interpolation-filters="sRGB" x="-1%" y="-1%" width="102%" height="102%">
+      <feColorMatrix type="matrix" values="0 0 0 0 .88  0 0 0 0 .91  0 0 0 0 .96  -.199844 -.672288 -.067868 0 .94"/>
+      <feDropShadow dx="0" dy=".35" stdDeviation=".15" flood-color="black" flood-opacity=".25"/>
+    </filter>
+  </defs></svg>
+  <script src="script.js?v=gentle-connection-10"></script>
+  <script src="liquid-glass.js?v=2"></script>
+  <script src="appearance.js?v=soft-switch-5"></script>
 </body>
 </html>
