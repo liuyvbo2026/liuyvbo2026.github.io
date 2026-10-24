@@ -184,6 +184,24 @@ copyWechat.addEventListener('click', async () => {
 });
 
 const projects = [
+  {
+    name:'DocAI',stage:'本地开发版',badge:'本地开发版',isExample:false,
+    summary:'上传资料，提炼重点、寻找答案，让文档成为随时可问的知识库。',
+    category:'AI 应用 / 文档问答',role:'产品定义 · 体验设计',
+    work:'资料上传 · 知识库问答',result:'已完成本地开发版',
+    cover:'assets/project-docai.svg',coverAlt:'DocAI 文档工作台的界面示意',
+    caption:'界面示意 · 本地开发版',footnote:'基于 AnythingLLM 二次开发',
+    detail:{
+      type:'PROJECT · DocAI',title:'DocAI · 让资料，变成答案。',
+      paragraphs:[
+        '希望解决的问题：资料不断积累，找到一份文档之后，仍要花时间阅读、摘取信息和整理答案。DocAI 把上传、资料管理与提问放在同一个工作台里。',
+        '核心流程：上传文件后，可以直接围绕当前文件提问，也可以将资料整理到长期资料库。回答时检索相关内容，并提供来源，方便回到原文核对。',
+        '产品取舍：把上传与提问放在首页，常用设置优先展示，高级功能按需展开；为文件处理、模型连接和保存操作补充明确反馈，降低第一次使用的门槛。',
+        '实现进展：基于 AnythingLLM 二次开发，已完成中文界面、DocAI 品牌和本地启动流程，支持小米 MiMo、DeepSeek 及其他模型接入。当前版本已完成构建和主要操作路径检查，正在继续完善体验。'
+      ],
+      notice:'当前为可在本机运行的开发版本，尚未提供公开在线体验。'
+    }
+  },
   {name:'智能制造协同平台',stage:'示例方案',summary:'为生产团队集中管理任务与现场异常，让处理进度更容易追踪。',category:'智能制造 / 业务协同',role:'待补充',work:'流程梳理 · 任务协同',result:'待补充',cover:'assets/project-manufacturing.svg',detail:{type:'PROJECT / 01 · 示例',title:'智能制造协同平台',paragraphs:['场景设想：生产任务与现场异常分散在多个沟通渠道，进度难以追踪。','方案示例：通过统一工作台串联任务安排、异常反馈与处理状态，让不同角色看到各自需要的信息。','这里可以进一步展示业务流程、角色权限、关键界面和验收标准。'],notice:'示例项目 · 用于展示作品集结构，并非已交付的真实项目。'}},
   {name:'AI 企业知识助手',stage:'概念探索',summary:'帮助企业员工从分散资料中找到答案，并核对回答依据。',category:'企业效率 / AI 应用',role:'待补充',work:'知识检索 · 来源追溯',result:'待补充',cover:'assets/project-knowledge.svg',detail:{type:'PROJECT / 02 · 示例',title:'AI 企业知识助手',paragraphs:['场景设想：企业资料分散，查找答案需要反复检索和向同事确认。','方案示例：结合知识检索与 AI 问答，呈现答案和相关资料来源，方便用户核对。','这里可以补充知识范围、权限设计、回答质量评测，以及无法回答时的处理方式。'],notice:'示例项目 · 概念内容仅用于预览，暂无真实业务数据或效果结论。'}},
   {name:'AI 个人效率助手',stage:'交互原型',summary:'帮助个人把零散想法整理成任务清单，让下一步行动更清楚。',category:'个人效率 / ToC AI',role:'待补充',work:'任务整理 · 行动建议',result:'待补充',cover:'assets/project-personal.svg',detail:{type:'PROJECT / 03 · 示例',title:'AI 个人效率助手',paragraphs:['场景设想：想法与待办随手记在各处，真正开始行动时难以理清优先级。','方案示例：帮助用户整理零散输入，生成可修改的任务清单与下一步建议。','这里可以展示核心使用路径、交互原型与用户反馈，并说明哪些建议仍需用户确认。'],notice:'示例项目 · 用于演示 ToC 产品的作品呈现方式，并非真实上线产品。'}}
@@ -209,7 +227,11 @@ function showProject(index, announce = true) {
   document.querySelector('#project-result').textContent = project.result;
   const cover = document.querySelector('#project-cover');
   cover.src = project.cover;
-  cover.alt = `${project.name}的示例界面`;
+  cover.alt = project.coverAlt || `${project.name}的示例界面`;
+  projectGallery.querySelector('.badge').textContent = project.badge || '示例项目';
+  projectGallery.querySelector('.project-facts dt span').hidden = project.isExample === false;
+  projectGallery.querySelector('.project-visual figcaption').textContent = project.caption || '界面示意 · 非真实项目截图';
+  projectGallery.querySelector('.project-bottom > p').textContent = project.footnote || '真实项目资料待补充';
   document.querySelector('#project-current').textContent = String(projectIndex + 1).padStart(2, '0');
   document.querySelector('#project-total').textContent = String(projects.length).padStart(2, '0');
   document.querySelector('#project-slide').setAttribute('aria-label', `第 ${projectIndex + 1} 个项目，共 ${projects.length} 个`);
