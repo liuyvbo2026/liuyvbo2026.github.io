@@ -584,29 +584,32 @@ html{background:var(--paper)}
 @media(prefers-reduced-motion:reduce){.theme-toggle:active{scale:1}}
 @supports not ((backdrop-filter:blur(1px)) or (-webkit-backdrop-filter:blur(1px))){[data-theme="dark"] body[data-wallpaper="grey"] :is(.note,.project-panel,.deck-preview),[data-theme="dark"] .header nav{background:#29292c}}
 
-/* Full-size product screenshots, using the existing card palette. */
-#project-image-link{display:block}
-.project-visual.has-gallery{padding:16px}
-.has-gallery #project-image-link{aspect-ratio:16/10;max-height:640px;overflow:hidden;border:1px solid var(--tone-edge);border-radius:12px;background:#f8f8f8;cursor:zoom-in}
-.has-gallery #project-cover{width:100%;height:100%;object-fit:contain;filter:none}
-.project-visual.has-gallery figcaption{display:flex;align-items:center;justify-content:space-between;gap:12px;margin-top:12px;text-align:left}
-.project-image-hint{white-space:nowrap}
-.project-visual:not(.has-gallery) .project-image-hint{display:none}
-.project-thumbnails{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:10px;margin-top:14px}
-.project-thumbnails[hidden]{display:none}
-.project-thumbnail{display:flex;align-items:center;gap:10px;min-width:0;padding:8px;border:1px solid var(--tone-edge);border-radius:12px;color:var(--tone-secondary);background:var(--tone-paper);transition:border-color 180ms ease,background 180ms ease}
-.project-visual .project-thumbnail img{flex:0 0 76px;width:76px;height:50px;object-fit:contain;margin:0;background:#f8f8f8;border-radius:5px;filter:none}
-.project-thumbnail span{font-size:11px;line-height:1.6}
-.project-thumbnail:hover{border-color:var(--tone-edge-hover)}
-.project-thumbnail[aria-pressed="true"]{border-color:var(--tone-ink);color:var(--tone-ink);background:var(--tone-surface)}
-@media(max-width:800px){.project-thumbnails{grid-template-columns:repeat(2,minmax(0,1fr))}}
-@media(max-width:540px){
- .project-visual.has-gallery{padding:8px}
- .has-gallery #project-image-link{aspect-ratio:4/3;border-radius:9px}
- .project-visual.has-gallery figcaption{align-items:flex-start;gap:4px;flex-direction:column;margin-top:9px}
- .project-thumbnails{gap:7px;margin-top:10px}
- .project-thumbnail{gap:7px;padding:6px;border-radius:9px}
- .project-visual .project-thumbnail img{flex-basis:48px;width:48px;height:36px}
- .project-thumbnail span{font-size:10px}
+/* Three static screenshots stay inside one compact project card. */
+.compact-project{padding:24px}
+.compact-project .project-overline{margin-bottom:6px}
+.compact-project>h3{font-size:26px;line-height:1.3}
+.compact-project #project-summary{margin:6px 0 16px;line-height:1.7}
+.compact-project .project-bottom{padding-top:12px}
+.project-shots{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:14px}
+.project-shot{margin:0;min-width:0}
+.project-shot img{display:block;width:100%;height:260px;object-fit:contain;object-position:center;background:#fafafa;border:1px solid var(--tone-edge);border-radius:12px}
+.project-shot figcaption{margin-top:9px;font-size:12px;line-height:1.6;color:var(--tone-secondary)}
+@media(min-width:801px) and (max-height:760px){
+ #works:has(.compact-project){--section-space:24px}
+ #works:has(.compact-project)>.section-label{margin-bottom:14px}
+ .project-gallery:has(.compact-project) .project-deck{padding-top:64px}
+ .project-gallery:has(.compact-project) .deck-preview{height:48px}
+ .project-gallery:has(.compact-project) .deck-middle{top:32px}
+ .compact-project .project-shot img{height:clamp(148px,calc(100svh - 472px),228px)}
 }
-@media(prefers-reduced-motion:reduce){.project-thumbnail{transition:none}}
+@media(max-width:800px){
+ .compact-project{padding:20px}
+ .project-shots{gap:10px}
+ .project-shot img{height:210px}
+ .project-shot figcaption{font-size:11px}
+}
+@media(max-width:600px){
+ .project-shots{grid-template-columns:1fr;gap:16px}
+ .project-shot img{height:auto;max-height:300px}
+ .compact-project>h3{font-size:23px}
+}
