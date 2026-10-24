@@ -583,3 +583,30 @@ html{background:var(--paper)}
 @media(max-width:360px){.header-tools{gap:4px}.theme-toggle{width:36px;height:36px;flex-basis:36px}.header nav a{padding-inline:5px}}
 @media(prefers-reduced-motion:reduce){.theme-toggle:active{scale:1}}
 @supports not ((backdrop-filter:blur(1px)) or (-webkit-backdrop-filter:blur(1px))){[data-theme="dark"] body[data-wallpaper="grey"] :is(.note,.project-panel,.deck-preview),[data-theme="dark"] .header nav{background:#29292c}}
+
+/* Full-size product screenshots, using the existing card palette. */
+#project-image-link{display:block}
+.project-visual.has-gallery{padding:16px}
+.has-gallery #project-image-link{aspect-ratio:16/10;max-height:640px;overflow:hidden;border:1px solid var(--tone-edge);border-radius:12px;background:#f8f8f8;cursor:zoom-in}
+.has-gallery #project-cover{width:100%;height:100%;object-fit:contain;filter:none}
+.project-visual.has-gallery figcaption{display:flex;align-items:center;justify-content:space-between;gap:12px;margin-top:12px;text-align:left}
+.project-image-hint{white-space:nowrap}
+.project-visual:not(.has-gallery) .project-image-hint{display:none}
+.project-thumbnails{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:10px;margin-top:14px}
+.project-thumbnails[hidden]{display:none}
+.project-thumbnail{display:flex;align-items:center;gap:10px;min-width:0;padding:8px;border:1px solid var(--tone-edge);border-radius:12px;color:var(--tone-secondary);background:var(--tone-paper);transition:border-color 180ms ease,background 180ms ease}
+.project-visual .project-thumbnail img{flex:0 0 76px;width:76px;height:50px;object-fit:contain;margin:0;background:#f8f8f8;border-radius:5px;filter:none}
+.project-thumbnail span{font-size:11px;line-height:1.6}
+.project-thumbnail:hover{border-color:var(--tone-edge-hover)}
+.project-thumbnail[aria-pressed="true"]{border-color:var(--tone-ink);color:var(--tone-ink);background:var(--tone-surface)}
+@media(max-width:800px){.project-thumbnails{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media(max-width:540px){
+ .project-visual.has-gallery{padding:8px}
+ .has-gallery #project-image-link{aspect-ratio:4/3;border-radius:9px}
+ .project-visual.has-gallery figcaption{align-items:flex-start;gap:4px;flex-direction:column;margin-top:9px}
+ .project-thumbnails{gap:7px;margin-top:10px}
+ .project-thumbnail{gap:7px;padding:6px;border-radius:9px}
+ .project-visual .project-thumbnail img{flex-basis:48px;width:48px;height:36px}
+ .project-thumbnail span{font-size:10px}
+}
+@media(prefers-reduced-motion:reduce){.project-thumbnail{transition:none}}

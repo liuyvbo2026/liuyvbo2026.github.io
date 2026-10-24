@@ -190,7 +190,13 @@ const projects = [
     category:'AI 应用 / 文档问答',
     repository:'https://github.com/liuyvbo2026/docai',
     cover:'assets/project-docai-real.png',coverAlt:'DocAI 实际运行的文档提问首页',
-    caption:'真实界面 · 本地运行截图',footnote:'基于 AnythingLLM 二次开发'
+    caption:'真实界面 · 本地运行截图',footnote:'基于 AnythingLLM 二次开发',
+    images:[
+      {src:'assets/project-docai-real.png',title:'开始提问',alt:'DocAI 首页：上传文件或直接输入问题',width:808,height:574},
+      {src:'assets/project-docai-library.png',title:'管理资料',alt:'DocAI 资料管理：已加入的三份演示文档',width:980,height:607},
+      {src:'assets/project-docai-answer.png',title:'文档问答',alt:'DocAI 根据入门指南生成回答，并列出资料来源',width:850,height:440},
+      {src:'assets/project-docai-source.png',title:'查看来源',alt:'DocAI 展开来源文档，查看回答引用的原文',width:640,height:510}
+    ]
   },
   {name:'智能制造协同平台',stage:'示例方案',summary:'为生产团队集中管理任务与现场异常，让处理进度更容易追踪。',category:'智能制造 / 业务协同',role:'待补充',work:'流程梳理 · 任务协同',result:'待补充',cover:'assets/project-manufacturing.svg',detail:{type:'PROJECT / 01 · 示例',title:'智能制造协同平台',paragraphs:['场景设想：生产任务与现场异常分散在多个沟通渠道，进度难以追踪。','方案示例：通过统一工作台串联任务安排、异常反馈与处理状态，让不同角色看到各自需要的信息。','这里可以进一步展示业务流程、角色权限、关键界面和验收标准。'],notice:'示例项目 · 用于展示作品集结构，并非已交付的真实项目。'}},
   {name:'AI 企业知识助手',stage:'概念探索',summary:'帮助企业员工从分散资料中找到答案，并核对回答依据。',category:'企业效率 / AI 应用',role:'待补充',work:'知识检索 · 来源追溯',result:'待补充',cover:'assets/project-knowledge.svg',detail:{type:'PROJECT / 02 · 示例',title:'AI 企业知识助手',paragraphs:['场景设想：企业资料分散，查找答案需要反复检索和向同事确认。','方案示例：结合知识检索与 AI 问答，呈现答案和相关资料来源，方便用户核对。','这里可以补充知识范围、权限设计、回答质量评测，以及无法回答时的处理方式。'],notice:'示例项目 · 概念内容仅用于预览，暂无真实业务数据或效果结论。'}},
@@ -198,6 +204,61 @@ const projects = [
 ];
 let projectIndex = 0;
 const projectGallery = document.querySelector('.project-gallery');
+const projectVisual = projectGallery.querySelector('.project-visual');
+let projectImageIndex = 0;
+function currentProjectImages() {
+  const project = projects[projectIndex];
+  return project.images || [{src:project.cover,title:project.name,alt:project.coverAlt || `${project.name}的示例界面`,width:900,height:414}];
+}
+function showProjectImage(index) {
+  const images = currentProjectImages();
+  projectImageIndex = (index + images.length) % images.length;
+  const image = images[projectImageIndex];
+  const cover = document.querySelector('#project-cover');
+  cover.src = image.src;
+  cover.alt = image.alt;
+  cover.width = image.width;
+  cover.height = image.height;
+  const link = document.querySelector('#project-image-link');
+  link.href = image.src;
+  link.setAttribute('aria-label', `查看 ${projects[projectIndex].name} ${image.title}的原图（新标签页）`);
+  document.querySelector('#project-image-caption').textContent = images.length > 1
+    ? `${String(projectImageIndex + 1).padStart(2,'0')} / ${String(images.length).padStart(2,'0')} · ${image.title} · 真实界面`
+    : projects[projectIndex].caption || '界面示意 · 非真实项目截图';
+  projectVisual.querySelectorAll('.project-thumbnail').forEach((button,i) => button.setAttribute('aria-pressed',String(i === projectImageIndex)));
+}
+function renderProjectImages() {
+  const images = currentProjectImages();
+  const thumbnails = projectVisual.querySelector('.project-thumbnails');
+  projectVisual.classList.toggle('has-gallery',images.length > 1);
+  thumbnails.hidden = images.length < 2;
+  thumbnails.replaceChildren();
+  if (images.length > 1) images.forEach((image,i) => {
+    const button = document.createElement('button');
+    button.type = 'button';
+    button.className = 'project-thumbnail';
+    button.setAttribute('aria-label',`查看第 ${i + 1} 张截图：${image.title}`);
+    button.setAttribute('aria-controls','project-cover');
+    const preview = document.createElement('img');
+    preview.src = image.src;
+    preview.alt = '';
+    preview.loading = 'lazy';
+    const label = document.createElement('span');
+    label.textContent = `${String(i + 1).padStart(2,'0')} ${image.title}`;
+    button.append(preview,label);
+    button.addEventListener('click',() => showProjectImage(i));
+    thumbnails.append(button);
+  });
+  showProjectImage(0);
+}
+projectVisual.addEventListener('keydown',event => {
+  if (!event.target.closest('.project-thumbnail') || !['ArrowLeft','ArrowRight','Home','End'].includes(event.key)) return;
+  event.preventDefault();
+  event.stopPropagation();
+  const images = currentProjectImages();
+  showProjectImage(event.key === 'Home' ? 0 : event.key === 'End' ? images.length - 1 : projectImageIndex + (event.key === 'ArrowRight' ? 1 : -1));
+  projectVisual.querySelectorAll('.project-thumbnail')[projectImageIndex].focus({preventScroll:true});
+});
 function showProject(index, announce = true) {
   const direction = index < projectIndex ? -1 : 1;
   projectIndex = (index + projects.length) % projects.length;
@@ -212,11 +273,8 @@ function showProject(index, announce = true) {
   document.querySelector('#project-name').textContent = project.name;
   document.querySelector('#project-summary').textContent = project.summary;
   document.querySelector('#project-category').textContent = project.category;
-  const cover = document.querySelector('#project-cover');
-  cover.src = project.cover;
-  cover.alt = project.coverAlt || `${project.name}的示例界面`;
+  renderProjectImages();
   projectGallery.querySelector('.badge').textContent = project.badge || '示例项目';
-  projectGallery.querySelector('.project-visual figcaption').textContent = project.caption || '界面示意 · 非真实项目截图';
   projectGallery.querySelector('.project-bottom > p').textContent = project.footnote || '真实项目资料待补充';
   document.querySelector('#project-current').textContent = String(projectIndex + 1).padStart(2, '0');
   document.querySelector('#project-total').textContent = String(projects.length).padStart(2, '0');
