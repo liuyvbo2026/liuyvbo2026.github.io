@@ -6,7 +6,7 @@ html[data-backdrop="pixel"][data-theme="light"]{
   --tone-ink-hover:#292929;
   --tone-secondary:#404040;
   --tone-body:#3a3a3a;
-  --tone-caption:#686868;
+  --tone-caption:#595959;
 }
 :root{
   --section-heading-size:36px;
