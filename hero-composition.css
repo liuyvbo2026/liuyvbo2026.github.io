@@ -1,0 +1,29 @@
+/* A calm typographic first screen on the site's existing shared grid. */
+html[data-backdrop="pixel"][data-theme="light"] .ambient-wallpaper::after{
+  background:linear-gradient(90deg,rgba(255,255,255,.97),rgba(255,255,255,.94) 32%,rgba(255,255,255,.82) 70%,rgba(255,255,255,.60));
+}
+html[data-backdrop="pixel"][data-theme="dark"] .ambient-wallpaper::after{
+  background:linear-gradient(90deg,rgba(22,22,23,.97),rgba(22,22,23,.94) 32%,rgba(22,22,23,.82) 70%,rgba(22,22,23,.60));
+}
+.hero{min-height:500px;padding:88px 0 104px}
+.hero-hello{font-size:20px;line-height:1.6;margin:0 0 56px;color:var(--tone-body)}
+.hero-hello strong{font-weight:500}
+.hero h1.hero-statement{
+  font-size:clamp(38px,5vw,64px);font-weight:400;line-height:1.2;
+  letter-spacing:-.035em;column-gap:.65em;
+}
+.hero-statement>span:first-child{color:var(--tone-secondary)}
+.hero-statement>span:last-child{color:var(--tone-ink)}
+.hero-actions{margin-top:64px;gap:12px;align-items:center}
+@media(max-width:900px){
+  .hero{min-height:440px;padding:64px 0 80px}
+  .hero-hello{font-size:20px;margin-bottom:48px}
+  .hero h1.hero-statement{font-size:clamp(32px,5.2vw,46px);column-gap:.6em}
+  .hero-actions{margin-top:56px}
+}
+@media(max-width:540px){
+  .hero{min-height:0;padding:56px 0 64px}
+  .hero-hello{font-size:18px;line-height:1.6;margin-bottom:40px}
+  .hero h1.hero-statement{font-size:clamp(23px,7.2vw,36px);line-height:1.3;letter-spacing:-.035em;column-gap:.5em}
+  .hero-actions{margin-top:44px;gap:12px}
+}
