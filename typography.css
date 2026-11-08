@@ -1,5 +1,13 @@
 /* Extend the approved hero's quiet type and generous spacing across the site.
    Keep all glass materials, controls, carousel geometry and content intact. */
+/* Stronger light-theme ink, retaining the existing type weights and hierarchy. */
+html[data-backdrop="pixel"][data-theme="light"]{
+  --tone-ink:#1a1a1a;
+  --tone-ink-hover:#292929;
+  --tone-secondary:#404040;
+  --tone-body:#4f4f4f;
+  --tone-caption:#686868;
+}
 :root{
   --section-heading-size:36px;
   --card-heading-size:26px;
