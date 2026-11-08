@@ -316,8 +316,8 @@ body[data-wallpaper="grey"] :is(.project-visual,.badge){background:var(--glass-i
 
 
 
-/* A single reading column joins the introduction, experience and actions. */
-.hero{min-height:560px;padding:72px 0 84px;align-items:center}
+/* Keep the introduction and actions together, with balanced space above the works. */
+.hero{min-height:480px;padding:72px 0 84px;align-items:center}
 .hero-layout{grid-template-columns:minmax(0,1fr);width:min(100%,760px);gap:16px;align-items:start}
 .hero-hello{font-size:26px;line-height:1.5;margin:0 0 22px;letter-spacing:0}
 .hero-hello span{margin-left:0;font-weight:600}
@@ -331,7 +331,7 @@ body[data-wallpaper="grey"] :is(.project-visual,.badge){background:var(--glass-i
 .hero-description{max-width:660px;font-size:14px;line-height:1.9;margin:0}
 .hero-description>span+span{margin-top:4px}
 .hero-actions{margin-top:26px;gap:12px}
-@media(max-width:900px){.hero{min-height:520px;padding:64px 0 72px}.hero h1.hero-statement{font-size:44px}}
+@media(max-width:900px){.hero{min-height:460px;padding:64px 0 72px}.hero h1.hero-statement{font-size:44px}}
 @media(max-width:700px){.hero{min-height:0;padding:54px 0 64px}.hero-layout{gap:16px}.hero h1.hero-statement{display:block;font-size:44px;line-height:1.32}.hero-statement>span+span{margin-top:3px}}
 @media(max-width:540px){.hero{padding:40px 0 56px}.hero-layout{gap:14px}.hero-hello{font-size:22px;margin-bottom:22px}.hero h1.hero-statement{font-size:clamp(34px,9.6vw,40px);line-height:1.35;letter-spacing:-.8px;margin-bottom:21px}.hero-role{font-size:18px;gap:12px}.hero-role .role-focus{padding-left:12px}.hero-description{font-size:13px;line-height:1.9}.hero-description>span+span{margin-top:6px}.hero-actions{margin-top:24px}}
 
