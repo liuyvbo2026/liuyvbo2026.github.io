@@ -320,7 +320,8 @@ body[data-wallpaper="grey"] :is(.project-visual,.badge){background:var(--glass-i
 .hero{min-height:480px;padding:72px 0 84px;align-items:center}
 .hero-layout{grid-template-columns:minmax(0,1fr);width:min(100%,760px);gap:16px;align-items:start}
 .hero-hello{font-size:26px;line-height:1.5;margin:0 0 22px;letter-spacing:0}
-.hero-hello span{margin-left:0;font-weight:600}
+.hero-hello>span{display:inline-block;margin-left:0;color:inherit;font-weight:400}
+.hero-hello strong{color:var(--tone-ink-hover);font-weight:600}
 .hero h1.hero-statement{display:flex;flex-wrap:wrap;font-size:clamp(44px,4.2vw,54px);font-weight:600;line-height:1.3;letter-spacing:-1.2px;margin:0 0 22px}
 .hero-statement>span{display:block;white-space:nowrap}
 .hero-statement>span+span{margin-top:0}
