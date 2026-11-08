@@ -1,0 +1,18 @@
+/* Adjacent chapters remain visible as a quiet hint of what comes next. */
+main > section[data-section-focus] {
+  opacity: var(--section-presence, 1);
+  transition: opacity 120ms linear;
+}
+
+/* Keyboard users can always read and operate the control they reached. */
+main > section[data-section-focus]:has(:focus-visible),
+main > section[data-section-focus]:focus-visible {
+  opacity: 1;
+}
+
+@media (prefers-reduced-motion: reduce), (prefers-reduced-transparency: reduce), (forced-colors: active), print {
+  main > section[data-section-focus] {
+    opacity: 1;
+    transition: none;
+  }
+}
