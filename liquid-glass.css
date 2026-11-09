@@ -123,11 +123,11 @@ html:root[data-theme] body[data-visual="liquid"] #contact .copy-wechat:active{
 /* GitHub tint uses the same glass layers, rim and motion as other controls. */
 :root{
  --github-ink:#fff;
- --github-fill:rgba(36,41,47,.78);
- --github-hover:rgba(50,56,63,.86);
- --github-active:rgba(27,31,36,.84);
- --github-glint:rgba(255,255,255,.08);
- --github-hover-glint:rgba(255,255,255,.12);
+ --github-fill:#24292f;
+ --github-hover:#32383f;
+ --github-active:#1b1f24;
+ --github-glint:rgba(255,255,255,.025);
+ --github-hover-glint:rgba(255,255,255,.045);
 }
 :root[data-theme="dark"]{
  --github-ink:#0d1117;
