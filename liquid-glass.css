@@ -120,24 +120,42 @@ html:root[data-theme] body[data-visual="liquid"] #contact .copy-wechat:active{
  html:root[data-theme] body[data-visual="liquid"] #contact .copy-wechat{background:var(--tone-paper);border-color:var(--tone-edge-hover)}
 }
 
-/* Custom GitHub colors apply only to the light pixel theme. */
+/* Custom GitHub surface applies only to the light pixel theme. */
 :root[data-theme="light"][data-backdrop="pixel"]{
  --github-ink:#fff;
  --github-fill:#24292f;
- --github-hover:#32383f;
+ --github-hover:#2c3239;
  --github-active:#1b1f24;
- --github-glint:rgba(255,255,255,.025);
- --github-hover-glint:rgba(255,255,255,.045);
+ --github-glint:rgba(255,255,255,.055);
+ --github-hover-glint:rgba(255,255,255,.08);
 }
 html:root[data-theme="light"][data-backdrop="pixel"] body[data-wallpaper][data-visual="liquid"] .hero-actions .action-button[href="https://github.com/liuyvbo2026"]{
  --liquid-plane-glint:var(--github-glint);
  color:var(--github-ink);
  background-color:var(--github-fill);
+ background-image:
+  linear-gradient(180deg,rgba(255,255,255,.06),transparent 52%,rgba(0,0,0,.08)),
+  linear-gradient(110deg,transparent calc(var(--glass-x) - 24%),var(--liquid-plane-glint) var(--glass-x),transparent calc(var(--glass-x) + 24%));
+ border-color:rgba(27,31,36,.18);
+ box-shadow:
+  inset 0 1px 0 rgba(255,255,255,.24),
+  inset 0 -1px 0 rgba(0,0,0,.18),
+  0 2px 4px rgba(22,27,34,.14),
+  0 8px 16px -5px rgba(22,27,34,.28);
 }
 html:root[data-theme="light"][data-backdrop="pixel"] body[data-wallpaper][data-visual="liquid"] .hero-actions .action-button[href="https://github.com/liuyvbo2026"]:is(:hover,:focus-visible){
  --liquid-plane-glint:var(--github-hover-glint);
  background-color:var(--github-hover);
+ box-shadow:
+  inset 0 1px 0 rgba(255,255,255,.30),
+  inset 0 -1px 0 rgba(0,0,0,.18),
+  0 3px 6px rgba(22,27,34,.16),
+  0 10px 20px -5px rgba(22,27,34,.30);
 }
 html:root[data-theme="light"][data-backdrop="pixel"] body[data-wallpaper][data-visual="liquid"] .hero-actions .action-button[href="https://github.com/liuyvbo2026"]:active{
  background-color:var(--github-active);
+ box-shadow:
+  inset 0 2px 4px rgba(0,0,0,.24),
+  inset 0 -1px 0 rgba(255,255,255,.06),
+  0 1px 3px rgba(22,27,34,.14);
 }
