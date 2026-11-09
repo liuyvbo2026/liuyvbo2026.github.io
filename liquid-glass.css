@@ -119,3 +119,18 @@ html:root[data-theme] body[data-visual="liquid"] #contact .copy-wechat:active{
  html:root[data-theme] body[data-wallpaper][data-visual="liquid"] :where(.header nav,.note,.project-panel,.deck-preview,.action-button,.project-details,.theme-toggle,dialog),
  html:root[data-theme] body[data-visual="liquid"] #contact .copy-wechat{background:var(--tone-paper);border-color:var(--tone-edge-hover)}
 }
+
+/* GitHub brand colors; retain the existing button geometry and effects. */
+html:root[data-theme] body[data-wallpaper][data-visual="liquid"] .hero-actions .action-button[href="https://github.com/liuyvbo2026"]{
+ color:#fff;
+ background:#24292f;
+ border-color:#24292f;
+}
+html:root[data-theme] body[data-wallpaper][data-visual="liquid"] .hero-actions .action-button[href="https://github.com/liuyvbo2026"]:is(:hover,:focus-visible){
+ background:#32383f;
+ border-color:#32383f;
+}
+html:root[data-theme] body[data-wallpaper][data-visual="liquid"] .hero-actions .action-button[href="https://github.com/liuyvbo2026"]:active{
+ background:#1b1f24;
+ border-color:#1b1f24;
+}
