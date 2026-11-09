@@ -120,8 +120,8 @@ html:root[data-theme] body[data-visual="liquid"] #contact .copy-wechat:active{
  html:root[data-theme] body[data-visual="liquid"] #contact .copy-wechat{background:var(--tone-paper);border-color:var(--tone-edge-hover)}
 }
 
-/* GitHub tint uses the same glass layers, rim and motion as other controls. */
-:root{
+/* Custom GitHub colors apply only to the light pixel theme. */
+:root[data-theme="light"][data-backdrop="pixel"]{
  --github-ink:#fff;
  --github-fill:#24292f;
  --github-hover:#32383f;
@@ -129,31 +129,15 @@ html:root[data-theme] body[data-visual="liquid"] #contact .copy-wechat:active{
  --github-glint:rgba(255,255,255,.025);
  --github-hover-glint:rgba(255,255,255,.045);
 }
-:root[data-theme="dark"]{
- --github-ink:#0d1117;
- --github-fill:rgba(230,237,243,.72);
- --github-hover:rgba(245,249,252,.80);
- --github-active:rgba(205,217,229,.76);
- --github-glint:rgba(255,255,255,.025);
- --github-hover-glint:rgba(255,255,255,.035);
-}
-:root[data-backdrop="desktop"]{
- --github-ink:#12243d;
- --github-fill:rgba(226,237,252,.68);
- --github-hover:rgba(244,249,255,.78);
- --github-active:rgba(208,225,246,.74);
- --github-glint:rgba(200,224,255,.025);
- --github-hover-glint:rgba(200,224,255,.035);
-}
-html:root[data-theme] body[data-wallpaper][data-visual="liquid"] .hero-actions .action-button[href="https://github.com/liuyvbo2026"]{
+html:root[data-theme="light"][data-backdrop="pixel"] body[data-wallpaper][data-visual="liquid"] .hero-actions .action-button[href="https://github.com/liuyvbo2026"]{
  --liquid-plane-glint:var(--github-glint);
  color:var(--github-ink);
  background-color:var(--github-fill);
 }
-html:root[data-theme] body[data-wallpaper][data-visual="liquid"] .hero-actions .action-button[href="https://github.com/liuyvbo2026"]:is(:hover,:focus-visible){
+html:root[data-theme="light"][data-backdrop="pixel"] body[data-wallpaper][data-visual="liquid"] .hero-actions .action-button[href="https://github.com/liuyvbo2026"]:is(:hover,:focus-visible){
  --liquid-plane-glint:var(--github-hover-glint);
  background-color:var(--github-hover);
 }
-html:root[data-theme] body[data-wallpaper][data-visual="liquid"] .hero-actions .action-button[href="https://github.com/liuyvbo2026"]:active{
+html:root[data-theme="light"][data-backdrop="pixel"] body[data-wallpaper][data-visual="liquid"] .hero-actions .action-button[href="https://github.com/liuyvbo2026"]:active{
  background-color:var(--github-active);
 }
