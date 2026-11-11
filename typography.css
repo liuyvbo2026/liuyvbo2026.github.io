@@ -42,7 +42,6 @@ main>:is(#works,#notes,#contact){
   flex-wrap:wrap;gap:8px 12px;margin:0 0 16px;
   font-size:var(--caption-size);line-height:1.7;letter-spacing:.2px;
 }
-#works .badge{font-size:11px;line-height:1.6;padding:2px 8px}
 #works .project-panel>h3{
   font-size:var(--card-heading-size);font-weight:400;
   line-height:1.4;letter-spacing:-.02em;overflow-wrap:anywhere;

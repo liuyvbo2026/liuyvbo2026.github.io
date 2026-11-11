@@ -31,7 +31,7 @@
  --deck-occlusion:rgba(0,0,0,.46);
 }
 /* Light travels across the surface while the backdrop remains softly visible. */
-html:root[data-theme] body[data-wallpaper][data-visual="liquid"] :where(.header nav,.header nav a[aria-current],.action-button,.project-details,.theme-toggle,.close,.note-open,.note,.project-panel,.deck-preview,.project-visual,.badge,dialog),
+html:root[data-theme] body[data-wallpaper][data-visual="liquid"] :where(.header nav,.header nav a[aria-current],.action-button,.project-details,.theme-toggle,.close,.note-open,.note,.project-panel,.deck-preview,.project-visual,dialog),
 html:root[data-theme] body[data-visual="liquid"] #contact .qr-viewport,
 html:root[data-theme] body[data-visual="liquid"] #contact .copy-wechat{
  --glass-x:30%;--glass-y:0%;
@@ -58,7 +58,7 @@ html:root[data-theme] body[data-wallpaper][data-visual="liquid"] .header nav a:h
 html:root[data-theme] body[data-wallpaper][data-visual="liquid"] :where(.note,.project-panel,dialog){
  border-radius:28px;
 }
-html:root[data-theme] body[data-wallpaper][data-visual="liquid"] :where(.project-visual,.badge){
+html:root[data-theme] body[data-wallpaper][data-visual="liquid"] :where(.project-visual){
  box-shadow:0 1px 3px var(--liquid-rim);
 }
 html:root[data-theme] body[data-wallpaper][data-visual="liquid"] .deck-preview{color:var(--tone-secondary);border-radius:28px}
