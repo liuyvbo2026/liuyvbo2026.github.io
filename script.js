@@ -185,19 +185,6 @@ copyWechat.addEventListener('click', async () => {
 
 const projects = [
   {
-    name:'DocAI',stage:'本地开发版',badge:'本地开发版',
-    summary:'上传文档后，直接向 AI 提问、总结重点，并查看答案来源。',
-    category:'AI 应用 / 文档问答',
-    repository:'https://github.com/liuyvbo2026/docai',
-    cover:'assets/project-docai-real.png',coverAlt:'DocAI 实际运行的文档提问首页',
-    caption:'真实界面 · 本地运行截图',footnote:'基于 AnythingLLM 二次开发',
-    images:[
-      {src:'assets/project-docai-home-hd.png',title:'开始提问',alt:'DocAI 完整首页：导航、资料库与提问输入区',width:2200,height:1440},
-      {src:'assets/project-docai-library-hd.png',title:'管理资料',alt:'DocAI 完整资料管理界面：查看和添加演示文档',width:2200,height:1440},
-      {src:'assets/project-docai-answer-hd.png',title:'对话界面',alt:'DocAI 完整对话界面：将会议记录整理成待办事项',width:2200,height:1440}
-    ]
-  },
-  {
     name:'商图AI',stage:'本地 Beta',badge:'本地 Beta',
     summary:'上传商品原图，填写卖点和生成要求，按目标平台与语言制作一套白底图、卖点图和场景图。',
     category:'电商工具 / AI 商品图',
@@ -207,6 +194,19 @@ const projects = [
       {src:'assets/project-shangtu-ai.jpg',title:'商品套图工作台',alt:'商图AI 商品套图工作台与生成设置',width:1290,height:821},
       {src:'assets/project-shangtu-layout.jpg',title:'选择卖点图版式',alt:'商图AI 卖点图版式模板与已选版式面板',width:1290,height:821},
       {src:'assets/project-shangtu-batch.jpg',title:'批量任务设置',alt:'商图AI 批量生成的全局设置与单商品任务',width:1290,height:821}
+    ]
+  },
+  {
+    name:'DocAI',stage:'本地开发版',badge:'本地开发版',
+    summary:'上传文档后，直接向 AI 提问、总结重点，并查看答案来源。',
+    category:'AI 应用 / 文档问答',
+    repository:'https://github.com/liuyvbo2026/docai',
+    cover:'assets/project-docai-real.png',coverAlt:'DocAI 实际运行的文档提问首页',
+    caption:'真实界面 · 本地运行截图',footnote:'',
+    images:[
+      {src:'assets/project-docai-home-hd.png',title:'开始提问',alt:'DocAI 完整首页：导航、资料库与提问输入区',width:2200,height:1440},
+      {src:'assets/project-docai-library-hd.png',title:'管理资料',alt:'DocAI 完整资料管理界面：查看和添加演示文档',width:2200,height:1440},
+      {src:'assets/project-docai-answer-hd.png',title:'对话界面',alt:'DocAI 完整对话界面：将会议记录整理成待办事项',width:2200,height:1440}
     ]
   },
   {
@@ -264,7 +264,7 @@ function showProject(index, announce = true) {
   document.querySelector('#project-category').textContent = project.category;
   renderProjectImages();
   projectGallery.querySelector('.badge').textContent = project.badge || '示例项目';
-  projectGallery.querySelector('.project-bottom > p').textContent = project.footnote || '真实项目资料待补充';
+  projectGallery.querySelector('.project-bottom > p').textContent = project.footnote ?? '真实项目资料待补充';
   document.querySelector('#project-current').textContent = String(projectIndex + 1).padStart(2, '0');
   document.querySelector('#project-total').textContent = String(projects.length).padStart(2, '0');
   document.querySelector('#project-slide').setAttribute('aria-label', `第 ${projectIndex + 1} 个项目，共 ${projects.length} 个`);
