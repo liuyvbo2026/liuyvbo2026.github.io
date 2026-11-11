@@ -48,7 +48,7 @@ main>:is(#works,#notes,#contact){
   line-height:1.4;letter-spacing:-.02em;overflow-wrap:anywhere;
 }
 #works #project-summary{
-  max-width:58ch;margin:12px 0 28px;
+  margin:12px 0 28px;
   font-size:var(--reading-size);line-height:1.85;color:var(--tone-body);
 }
 #works .project-shot figcaption,#works .project-visual figcaption{

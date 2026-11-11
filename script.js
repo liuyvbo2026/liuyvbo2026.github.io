@@ -202,18 +202,24 @@ const projects = [
     summary:'上传商品原图，填写卖点和生成要求，按目标平台与语言制作一套白底图、卖点图和场景图。',
     category:'电商工具 / AI 商品图',
     repository:'https://github.com/liuyvbo2026/shangtu-ai',
-    cover:'assets/project-shangtu-ai.jpg',coverWidth:1290,coverHeight:821,
-    coverAlt:'商图AI 商品套图工作台与生成设置',
-    caption:'商品套图工作台',footnote:'套图规划 · 单图修改 · 打包下载'
+    footnote:'套图规划 · 单图修改 · 打包下载',
+    images:[
+      {src:'assets/project-shangtu-ai.jpg',title:'商品套图工作台',alt:'商图AI 商品套图工作台与生成设置',width:1290,height:821},
+      {src:'assets/project-shangtu-layout.jpg',title:'选择卖点图版式',alt:'商图AI 卖点图版式模板与已选版式面板',width:1290,height:821},
+      {src:'assets/project-shangtu-batch.jpg',title:'批量任务设置',alt:'商图AI 批量生成的全局设置与单商品任务',width:1290,height:821}
+    ]
   },
   {
     name:'知应',stage:'本地原型',badge:'本地原型',
     summary:'面向客服团队的 AI 工作台，集中管理访客会话、知识库和人工接管，并在画布上编辑工作流草稿。',
     category:'企业工具 / AI 客服',
     repository:'https://github.com/liuyvbo2026/zhiying',
-    cover:'assets/project-zhiying.jpg',coverWidth:1290,coverHeight:821,
-    coverAlt:'知应的工作流草稿编辑器与节点面板',
-    caption:'工作流草稿编辑器',footnote:'访客会话 · 知识库 · 人工接管'
+    footnote:'访客会话 · 知识库 · 人工接管',
+    images:[
+      {src:'assets/project-zhiying-workflows.jpg',title:'工作流管理',alt:'知应的工作流列表与状态筛选',width:1290,height:821},
+      {src:'assets/project-zhiying.jpg',title:'工作流草稿编辑器',alt:'知应的工作流草稿编辑器与节点面板',width:1290,height:821},
+      {src:'assets/project-zhiying-knowledge.jpg',title:'知识库管理',alt:'知应的知识库列表与创建入口',width:1290,height:821}
+    ]
   },
   {name:'智能制造协同平台',stage:'示例方案',summary:'为生产团队集中管理任务与现场异常，让处理进度更容易追踪。',category:'智能制造 / 业务协同',role:'待补充',work:'流程梳理 · 任务协同',result:'待补充',cover:'assets/project-manufacturing.svg',detail:{type:'PROJECT / 01 · 示例',title:'智能制造协同平台',paragraphs:['场景设想：生产任务与现场异常分散在多个沟通渠道，进度难以追踪。','方案示例：通过统一工作台串联任务安排、异常反馈与处理状态，让不同角色看到各自需要的信息。','这里可以进一步展示业务流程、角色权限、关键界面和验收标准。'],notice:'示例项目 · 用于展示作品集结构，并非已交付的真实项目。'}},
   {name:'AI 企业知识助手',stage:'概念探索',summary:'帮助企业员工从分散资料中找到答案，并核对回答依据。',category:'企业效率 / AI 应用',role:'待补充',work:'知识检索 · 来源追溯',result:'待补充',cover:'assets/project-knowledge.svg',detail:{type:'PROJECT / 02 · 示例',title:'AI 企业知识助手',paragraphs:['场景设想：企业资料分散，查找答案需要反复检索和向同事确认。','方案示例：结合知识检索与 AI 问答，呈现答案和相关资料来源，方便用户核对。','这里可以补充知识范围、权限设计、回答质量评测，以及无法回答时的处理方式。'],notice:'示例项目 · 概念内容仅用于预览，暂无真实业务数据或效果结论。'}},
@@ -224,7 +230,7 @@ const projectGallery = document.querySelector('.project-gallery');
 const projectMedia = projectGallery.querySelector('.project-media');
 function renderProjectImages() {
   const project = projects[projectIndex];
-  const images = project.images || [{src:project.cover,alt:project.coverAlt || `${project.name}的示例界面`,width:project.coverWidth || 900,height:project.coverHeight || 414}];
+  const images = project.images || [{src:project.cover,alt:project.coverAlt || `${project.name}的示例界面`,width:900,height:414}];
   projectMedia.classList.toggle('project-shots',Boolean(project.images));
   document.querySelector('#project-slide').classList.toggle('compact-project',Boolean(project.images));
   projectMedia.setAttribute('aria-label',`${project.name}界面展示`);
@@ -300,7 +306,7 @@ projectGallery.addEventListener('keydown', event => {
     showProject(projectIndex + (event.key === 'ArrowRight' ? 1 : -1));
   }
 });
-projects.slice(1).forEach(project => { const image = new Image(); image.src = project.cover; });
+projects.slice(1).forEach(project => { const image = new Image(); image.src = project.images?.[0].src || project.cover; });
 showProject(0, false);
 
 

@@ -31,7 +31,7 @@ button,a{-webkit-tap-highlight-color:transparent;touch-action:manipulation}a{col
 .badge{font-size:10px;line-height:1.5;color:var(--tone-body);border:1px solid var(--tone-edge);border-radius:var(--radius-control);padding:2px 6px;background:var(--tone-paper);white-space:nowrap}
 h3{font-size:27px;line-height:1.5;letter-spacing:-.6px;font-weight:500;margin:0}
 .project-panel>h3{font-size:clamp(24px,2.5vw,36px);letter-spacing:-.7px}
-#project-summary{font-size:16px;line-height:1.85;color:var(--tone-body);margin:10px 0 24px;max-width:900px}
+#project-summary{font-size:16px;line-height:1.85;color:var(--tone-body);margin:10px 0 24px}
 .project-facts{display:grid;grid-template-columns:.8fr 1.3fr 1fr;gap:24px;margin:0 0 25px;padding:19px 0;border-block:1px solid var(--tone-edge)}
 .project-facts dt{font-size:11px;line-height:1.6;color:var(--tone-caption);margin-bottom:7px}
 .project-facts dt span{color:var(--tone-caption)}
