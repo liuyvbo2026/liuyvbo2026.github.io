@@ -74,7 +74,7 @@ main>:is(#works,#notes,#contact){
   margin:16px 0 0;color:var(--tone-body);
 }
 #notes .note .article-meta{gap:6px;font-size:var(--caption-size);line-height:1.75}
-#notes .article-example{font-size:var(--caption-size);line-height:1.75}
+#notes .article-date{font-size:var(--caption-size);line-height:1.75;color:var(--tone-caption)}
 #notes .notes-foot{
   margin:24px var(--gallery-inset) 0;max-width:70ch;
   font-size:var(--caption-size);line-height:1.8;color:var(--tone-caption);
